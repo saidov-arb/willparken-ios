@@ -1,0 +1,426 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B30E2C73296EA21100064A55 /* WillParkenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E2C72296EA21100064A55 /* WillParkenApp.swift */; };
+		B30E2C77296EA21200064A55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B30E2C76296EA21200064A55 /* Assets.xcassets */; };
+		B30E2C7A296EA21200064A55 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B30E2C79296EA21200064A55 /* Preview Assets.xcassets */; };
+		B30E8D60297C3AA60092FD63 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D5F297C3AA60092FD63 /* RegisterView.swift */; };
+		B30E8D62297C40FC0092FD63 /* WPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D61297C40FC0092FD63 /* WPTextField.swift */; };
+		B30E8D65297C7DB40092FD63 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D64297C7DB40092FD63 /* Network.swift */; };
+		B30E8D67297C7E0F0092FD63 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D66297C7E0F0092FD63 /* User.swift */; };
+		B30E8D69297C7EF00092FD63 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D68297C7EF00092FD63 /* Car.swift */; };
+		B30F654D298404B800CCEF09 /* ParkingspotSlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30F654C298404B800CCEF09 /* ParkingspotSlotView.swift */; };
+		B322BA6A29859E7000889FAF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322BA6929859E7000889FAF /* HTTPMethod.swift */; };
+		B35BF413297C018A00407CED /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BF412297C018A00407CED /* DashboardView.swift */; };
+		B35BF415297C091400407CED /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BF414297C091400407CED /* MainView.swift */; };
+		B3726800298688E500E50D1A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37267FF298688E500E50D1A /* LoginView.swift */; };
+		B37268022986905C00E50D1A /* WPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37268012986905C00E50D1A /* WPButton.swift */; };
+		B39E88162983E188000A1CB5 /* Parkingspot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E88152983E188000A1CB5 /* Parkingspot.swift */; };
+		B39E88182983E1FC000A1CB5 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E88172983E1FC000A1CB5 /* Address.swift */; };
+		B3D6D0CD2975801800B28336 /* MainTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6D0CC2975801800B28336 /* MainTitleView.swift */; };
+		B3D6D0CF2975838500B28336 /* ServiceObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6D0CE2975838500B28336 /* ServiceObjectView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B30E2C6F296EA21100064A55 /* WillParken.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WillParken.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B30E2C72296EA21100064A55 /* WillParkenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WillParkenApp.swift; sourceTree = "<group>"; };
+		B30E2C76296EA21200064A55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B30E2C79296EA21200064A55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B30E8D5F297C3AA60092FD63 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		B30E8D61297C40FC0092FD63 /* WPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPTextField.swift; sourceTree = "<group>"; };
+		B30E8D64297C7DB40092FD63 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		B30E8D66297C7E0F0092FD63 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B30E8D68297C7EF00092FD63 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
+		B30F654C298404B800CCEF09 /* ParkingspotSlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingspotSlotView.swift; sourceTree = "<group>"; };
+		B322BA6829859C4A00889FAF /* Tryout.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Tryout.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		B322BA6929859E7000889FAF /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		B35BF412297C018A00407CED /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		B35BF414297C091400407CED /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B37267FF298688E500E50D1A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B37268012986905C00E50D1A /* WPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPButton.swift; sourceTree = "<group>"; };
+		B39E88152983E188000A1CB5 /* Parkingspot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parkingspot.swift; sourceTree = "<group>"; };
+		B39E88172983E1FC000A1CB5 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		B3D6D0CC2975801800B28336 /* MainTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleView.swift; sourceTree = "<group>"; };
+		B3D6D0CE2975838500B28336 /* ServiceObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceObjectView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B30E2C6C296EA21100064A55 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B30E2C66296EA21100064A55 = {
+			isa = PBXGroup;
+			children = (
+				B30E2C71296EA21100064A55 /* WillParken */,
+				B322BA6829859C4A00889FAF /* Tryout.playground */,
+				B30E2C70296EA21100064A55 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B30E2C70296EA21100064A55 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B30E2C6F296EA21100064A55 /* WillParken.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B30E2C71296EA21100064A55 /* WillParken */ = {
+			isa = PBXGroup;
+			children = (
+				B30E8D63297C7D620092FD63 /* Model */,
+				B30E2C81296EA26C00064A55 /* View */,
+				B30E2C80296EA26700064A55 /* App */,
+				B30E2C76296EA21200064A55 /* Assets.xcassets */,
+				B30E2C78296EA21200064A55 /* Preview Content */,
+			);
+			path = WillParken;
+			sourceTree = "<group>";
+		};
+		B30E2C78296EA21200064A55 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B30E2C79296EA21200064A55 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B30E2C80296EA26700064A55 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B30E2C72296EA21100064A55 /* WillParkenApp.swift */,
+				B35BF414297C091400407CED /* MainView.swift */,
+				B35BF412297C018A00407CED /* DashboardView.swift */,
+				B30E8D5F297C3AA60092FD63 /* RegisterView.swift */,
+				B37267FF298688E500E50D1A /* LoginView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B30E2C81296EA26C00064A55 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B3D6D0CC2975801800B28336 /* MainTitleView.swift */,
+				B3D6D0CE2975838500B28336 /* ServiceObjectView.swift */,
+				B30E8D61297C40FC0092FD63 /* WPTextField.swift */,
+				B30F654C298404B800CCEF09 /* ParkingspotSlotView.swift */,
+				B37268012986905C00E50D1A /* WPButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B30E8D63297C7D620092FD63 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B322BA6929859E7000889FAF /* HTTPMethod.swift */,
+				B30E8D64297C7DB40092FD63 /* Network.swift */,
+				B30E8D66297C7E0F0092FD63 /* User.swift */,
+				B30E8D68297C7EF00092FD63 /* Car.swift */,
+				B39E88152983E188000A1CB5 /* Parkingspot.swift */,
+				B39E88172983E1FC000A1CB5 /* Address.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B30E2C6E296EA21100064A55 /* WillParken */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B30E2C7D296EA21200064A55 /* Build configuration list for PBXNativeTarget "WillParken" */;
+			buildPhases = (
+				B30E2C6B296EA21100064A55 /* Sources */,
+				B30E2C6C296EA21100064A55 /* Frameworks */,
+				B30E2C6D296EA21100064A55 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WillParken;
+			productName = WillParken;
+			productReference = B30E2C6F296EA21100064A55 /* WillParken.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B30E2C67296EA21100064A55 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					B30E2C6E296EA21100064A55 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
+			};
+			buildConfigurationList = B30E2C6A296EA21100064A55 /* Build configuration list for PBXProject "WillParken" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B30E2C66296EA21100064A55;
+			productRefGroup = B30E2C70296EA21100064A55 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B30E2C6E296EA21100064A55 /* WillParken */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B30E2C6D296EA21100064A55 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B30E2C7A296EA21200064A55 /* Preview Assets.xcassets in Resources */,
+				B30E2C77296EA21200064A55 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B30E2C6B296EA21100064A55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B35BF415297C091400407CED /* MainView.swift in Sources */,
+				B3D6D0CD2975801800B28336 /* MainTitleView.swift in Sources */,
+				B30E8D69297C7EF00092FD63 /* Car.swift in Sources */,
+				B3726800298688E500E50D1A /* LoginView.swift in Sources */,
+				B30F654D298404B800CCEF09 /* ParkingspotSlotView.swift in Sources */,
+				B322BA6A29859E7000889FAF /* HTTPMethod.swift in Sources */,
+				B30E8D65297C7DB40092FD63 /* Network.swift in Sources */,
+				B30E2C73296EA21100064A55 /* WillParkenApp.swift in Sources */,
+				B39E88162983E188000A1CB5 /* Parkingspot.swift in Sources */,
+				B39E88182983E1FC000A1CB5 /* Address.swift in Sources */,
+				B30E8D60297C3AA60092FD63 /* RegisterView.swift in Sources */,
+				B30E8D67297C7E0F0092FD63 /* User.swift in Sources */,
+				B37268022986905C00E50D1A /* WPButton.swift in Sources */,
+				B35BF413297C018A00407CED /* DashboardView.swift in Sources */,
+				B3D6D0CF2975838500B28336 /* ServiceObjectView.swift in Sources */,
+				B30E8D62297C40FC0092FD63 /* WPTextField.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B30E2C7B296EA21200064A55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B30E2C7C296EA21200064A55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B30E2C7E296EA21200064A55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "WillParken/Preview\\ Content";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = htlwels.saidtokic.WillParken;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B30E2C7F296EA21200064A55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "WillParken/Preview\\ Content";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = htlwels.saidtokic.WillParken;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B30E2C6A296EA21100064A55 /* Build configuration list for PBXProject "WillParken" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B30E2C7B296EA21200064A55 /* Debug */,
+				B30E2C7C296EA21200064A55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B30E2C7D296EA21200064A55 /* Build configuration list for PBXNativeTarget "WillParken" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B30E2C7E296EA21200064A55 /* Debug */,
+				B30E2C7F296EA21200064A55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B30E2C67296EA21100064A55 /* Project object */;
+}
