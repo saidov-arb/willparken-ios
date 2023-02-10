@@ -7,25 +7,26 @@
 
 import SwiftUI
 
-struct MainTitleView: View {
+struct WPTitle: View {
     let title: String
     let description: String
     var body: some View {
         VStack(alignment: .leading, spacing: 5){
             Text(title)
                 .font(.title)
-                .foregroundColor(Color("Font1"))
+                .foregroundColor(Color(.blue))
                 .fontWeight(.regular)
             Text(description)
                 .font(.caption)
-                .foregroundColor(Color("Font1"))
+                .foregroundColor(Color(.blue))
                 .fontWeight(.light )
         }
+        .frame(maxWidth: .infinity,alignment: .leading)
     }
 }
 
 struct MainTitleView_Previews: PreviewProvider {
     static var previews: some View {
-        MainTitleView(title: "WillParken", description: "Wo willst du denn parken?" )
+        WPTitle(title: "WillParken", description: "Wo willst du denn parken?" )
     }
 }

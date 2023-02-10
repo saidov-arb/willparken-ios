@@ -22,13 +22,13 @@ struct ServiceObjectView: View {
                     .frame(minWidth: 80, maxWidth:80)
                 
             }
-            .background(Color("Font1").cornerRadius(15))
-            .shadow(color: Color("Font1").opacity(0.4), radius: 5,x:0,y:10)
+            .background(Color(.purple).cornerRadius(15))
+            .shadow(color: Color(.purple).opacity(0.4), radius: 5,x:0,y:10)
             .padding(5)
             
             Text(serviceTitle)
                 .font(.caption)
-                .foregroundColor(Color("Font1"))
+                .foregroundColor(.purple)
                 .lineLimit(2)
         }
         .frame(minWidth: 80,maxWidth: .infinity)

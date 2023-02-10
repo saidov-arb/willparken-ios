@@ -23,7 +23,7 @@ class Network: ObservableObject{
             let u_username: String
             let u_password: String
         }
-        let loginData = LoginDataStruct(u_username: iUsername, u_password: iPassword)
+        let loginData = LoginDataStruct(u_username: iUsername, u_password: sha256(iPassword))
         //  Now just login the user (loginData will be converted to JSON inside the method)
         postDecodableObject(apiroute: "/users/login", httpmethod: HTTPMethod.POST, objectToSend: loginData) { (response: User?) in
             if let response = response {

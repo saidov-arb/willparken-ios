@@ -15,29 +15,42 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
+            
+//            Text("Ich WillParken!")
+//                .font(.largeTitle)
+//                .frame(maxWidth: .infinity, alignment: .center)
+            WPTitle(title: "WillParken", description: "Bleib stabil.")
+            
+            Spacer()
+            
             Text("Login")
                 .font(.title)
+                .frame(maxWidth: .infinity,alignment: .leading)
             
             WPTextField(placeholder: "Username", text: $username)
+                .padding(.top, 20)
             WPTextField(placeholder: "Password", text: $password, isPassword: true)
+                .padding(.top, 10)
             
             HStack{
-                WPButton(action: {
+                WPButton(backgroundColor: .blue, foregroundColor: .white, label: "LogIn") {
                     guard !username.isEmpty, !password.isEmpty else {
                         print("One or more fields are empty.")
                         return
                     }
                     network.loginUser(iUsername: username, iPassword: password)
-                }, label: "LogIn")
+                }
                 
-                WPButton(action: {
+                WPButton(backgroundColor: .white, foregroundColor: .blue, label: "Register") {
                     registerSwitch.toggle()
-                }, label: "Register")
+                }
             }
+            .padding(.top, 35)
             
+            Spacer()
         }
-        .padding()
-        .frame(maxWidth: 350)
+        .padding(.horizontal, 25)
+        .padding(.vertical)
     }
 }
 

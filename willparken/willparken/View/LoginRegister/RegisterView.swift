@@ -19,20 +19,33 @@ struct RegisterView: View {
     
     var body: some View {
         VStack {
+//            Text("Ich WillParken!")
+//                .font(.largeTitle)
+//                .frame(maxWidth: .infinity, alignment: .center)
+            WPTitle(title: "WillParken", description: "Bleib stabil.")
+            
+            Spacer()
+            
             Text("Register")
                 .font(.title)
+                .frame(maxWidth: .infinity,alignment: .leading)
             
             WPTextField(placeholder: "Username", text: $username)
-            HStack{
+                .padding(.top,20)
+            HStack (spacing: 10) {
                 WPTextField(placeholder: "Firstname", text: $firstname)
                 WPTextField(placeholder: "Lastname", text: $lastname)
             }
+            .padding(.top,10)
             WPTextField(placeholder: "Email", text: $email)
+                .padding(.top,10)
             WPTextField(placeholder: "Password", text: $password, isPassword: true)
+                .padding(.top,10)
             WPTextField(placeholder: "Confirm Password", text: $passwordConfirm, isPassword: true)
+                .padding(.top,10)
             
             HStack{
-                WPButton(action: {
+                WPButton(backgroundColor: .blue,foregroundColor: .white,label: "Register"){
                     guard !username.isEmpty, !firstname.isEmpty, !lastname.isEmpty, !email.isEmpty, !password.isEmpty, !passwordConfirm.isEmpty else {
                         print("One or more fields are empty.")
                         return
@@ -42,16 +55,18 @@ struct RegisterView: View {
                         return
                     }
                     network.registerUser(iUsername: username, iEmail: email, iFirstname: firstname, iLastname: lastname, iPassword: password)
-                }, label: "Register")
+                }
                 
-                WPButton(action: {
+                WPButton(label: "LogIn"){
                     registerSwitch.toggle()
-                }, label: "LogIn")
+                }
             }
+            .padding(.top,35)
             
+            Spacer()
         }
-        .padding()
-        .frame(maxWidth: 350)
+        .padding(.horizontal, 25)
+        .padding(.vertical)
     }
 }
 
