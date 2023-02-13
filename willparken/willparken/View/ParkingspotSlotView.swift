@@ -43,7 +43,7 @@ struct ParkingspotSlotView: View {
 }
 
 struct ParkingspotSlotViewTest: View{
-    @State var spot: Parkingspot = try! Parkingspot()
+    @State var spot: Parkingspot = Parkingspot(_id: "1", p_number: 1)
     var body: some View{
         ParkingspotSlotView(spot: spot)
     }

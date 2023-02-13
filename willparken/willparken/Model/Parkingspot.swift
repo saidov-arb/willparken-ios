@@ -15,9 +15,9 @@ class Parkingspot: Identifiable, Decodable {
     var p_priceperhour: String
     var pa_address: Address
     
-    init() throws {
-        self._id = "1"
-        self.p_number = 1
+    init(_id: String, p_number: Int) {
+        self._id = _id
+        self.p_number = p_number
         self.p_availablefrom = "01.01.2023"
         self.p_availableuntil = "31.01.2023"
         self.p_priceperhour = "7€"

@@ -13,7 +13,13 @@ import CommonCrypto
 class Network: ObservableObject{
     @Published var users: [User]? = []
     @Published var parkingspots: [Parkingspot]? = []
-    @Published var actualUser: User? = nil
+    @Published var currentUser: User? = nil
+    @Published var testUser: User? = User()
+    @Published var testParkingspots: [Parkingspot]? = [
+        Parkingspot(_id: "1", p_number: 1),
+        Parkingspot(_id: "2", p_number: 2),
+        Parkingspot(_id: "3", p_number: 3)
+    ]
     
     private final var APIURL: String = "http://localhost:3000"
     
@@ -27,8 +33,8 @@ class Network: ObservableObject{
         //  Now just login the user (loginData will be converted to JSON inside the method)
         postDecodableObject(apiroute: "/users/login", httpmethod: HTTPMethod.POST, objectToSend: loginData) { (response: User?) in
             if let response = response {
-                self.actualUser = response
-                print(self.actualUser!.u_email)
+                self.currentUser = response
+                print(self.currentUser!.u_email)
             } else {
                 print("Katastrophe.")
             }
@@ -50,8 +56,8 @@ class Network: ObservableObject{
         let registerData = RegisterDataStruct(u_username: iUsername, u_email: iEmail, u_firstname: iFirstname, u_lastname: iLastname, u_password: sha256(iPassword))
         postDecodableObject(apiroute: "/users/register", httpmethod: HTTPMethod.POST, objectToSend: registerData) { (response: User?) in
             if let response = response {
-                self.actualUser = response
-                print(self.actualUser!.u_email)
+                self.currentUser = response
+                print(self.currentUser!.u_email)
             } else {
                 print("Katastrophe.")
             }

@@ -21,5 +21,16 @@ class User: Identifiable, Decodable, ObservableObject {
     var u_password: String
     var uc_cars: [Car]
     var up_parkingspots: [String]
+    
+    init() {
+        self._id = "testid"
+        self.u_email = "test@willparken.wp"
+        self.u_username = "testusername"
+        self.u_firstname = "testfirstname"
+        self.u_lastname = "testlastname"
+        self.u_password = "testpassword"
+        self.uc_cars = [Car(_id: "1"),Car(_id: "2")]
+        self.up_parkingspots = ["1","2","3"]
+    }
 }
 

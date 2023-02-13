@@ -17,7 +17,7 @@ struct WPTitle: View {
                 .foregroundColor(Color(.blue))
                 .fontWeight(.regular)
             Text(description)
-                .font(.caption)
+                .font(.subheadline)
                 .foregroundColor(Color(.blue))
                 .fontWeight(.light )
         }

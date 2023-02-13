@@ -12,28 +12,25 @@ struct MainView: View {
     //loginRegisterSwitch (when false then login, when true then register)
     @State var registerSwitch: Bool = false
     var body: some View {
-        ZStack{
+        //MARK: Change testUser to currentUser
+        if network.testUser == nil {
+            if registerSwitch{
+                RegisterView(registerSwitch: $registerSwitch)
+                    .environmentObject(network)
+            } else {
+                LoginView(registerSwitch: $registerSwitch)
+                    .environmentObject(network)
+            }
 
-//            if network.actualUser == nil {
-//                if registerSwitch{
-//                    RegisterView(registerSwitch: $registerSwitch)
-//                        .environmentObject(network)
-//                } else {
-//                    LoginView(registerSwitch: $registerSwitch)
-//                        .environmentObject(network)
-//                }
-//
-//            } else {
-//                DashboardView()
-//                    .environmentObject(network)
-//            }
-            GeometryReader{ proxy in
-                let bottomSpace = proxy.safeAreaInsets.bottom
-                DashboardView(bottomSpace: bottomSpace == 0 ? 12 : bottomSpace)
+        } else {
+            //  This GeometryReader is helpful to measure the safeAreas
+            //  In this case the bottom safeArea is needed, so that the tabbar has the correct padding
+            GeometryReader{ tempMeasurement in
+                let bottomSpace = tempMeasurement.safeAreaInsets.bottom
+                TabBarSkeleton(bottomSpace: bottomSpace == 0 ? 12 : bottomSpace)
                     .environmentObject(network)
                     .ignoresSafeArea(.all, edges: .bottom)
             }
-                
         }
     }
 }

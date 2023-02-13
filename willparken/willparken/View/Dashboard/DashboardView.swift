@@ -9,48 +9,80 @@ import SwiftUI
 
 struct DashboardView: View {
     @EnvironmentObject var network: Network
-    @State var currentTab: String = "Dashboard"
-    var bottomSpace: CGFloat
-    
-    init(bottomSpace: CGFloat) {
-        //  This can be removed maybe...
-        //  This hides the "Native Tabbar"...
-        UITabBar.appearance().isHidden = true
-        
-        self.bottomSpace = bottomSpace
-    }
     
     var body: some View {
-        VStack {
-            WPTitle(title: "WillParken", description: "Bleib stabil.")
-            
-            //  The View, where tag equals $currentTab will be active/shown
-            TabView (selection: $currentTab) {
-                Text("Search")
-                    .tag("Search")
-                Text("Dashboard")
-                    .tag("Dashboard")
-                Text("Profile")
-                    .tag("Profile")
+        
+        NavigationView {
+            ScrollView{
+                WPTitle(title: "WillParken", description: "Bleib stabil.")
+                    .padding(.bottom, 25)
+                
+                
+                DashboardCard(title: "Your Parkingspots (\(network.testParkingspots!.count))", destination: {
+                    AnyView(
+                        Text("All Parkingspots of User will be displayed here.")
+                    )
+                }) {
+                    AnyView(
+                        ForEach(network.testParkingspots!.prefix(3)){ iParkingspot in
+                            HStack{
+                                Image(systemName: "parkingsign.circle.fill")
+                                    .font(.largeTitle)
+                                    .padding([.leading,.trailing],10)
+                                VStack (alignment: .leading){
+                                    Text("\(iParkingspot.pa_address.a_zip) \(iParkingspot.pa_address.a_city)")
+                                        .font(.title3)
+                                    Text("\(iParkingspot.pa_address.a_address1)")
+                                        .font(.body)
+                                }
+                                Spacer()
+                                Text("\(iParkingspot.p_number)")
+                                    .font(.largeTitle)
+                                Spacer()
+                            }
+                        }
+                    )
+                }
+                
+                DashboardCard(title: "Your Cars (\(network.testUser!.uc_cars.count))", destination: {
+                    AnyView(
+                        Text("All Cars of User will be displayed here.")
+                    )
+                }) {
+                    AnyView(
+                        ForEach(network.testUser!.uc_cars.prefix(3)){ iCar in
+                            HStack{
+                                Image(systemName: "car.fill")
+                                    .font(.largeTitle)
+                                    .padding([.leading,.trailing],10)
+                                VStack (alignment: .leading){
+                                    Text("\(iCar.c_brand) \(iCar.c_model)")
+                                        .font(.title2)
+                                        .textCase(.uppercase)
+                                    Text("\(iCar.c_licenceplate)")
+                                        .font(.title2)
+                                        .textCase(.uppercase)
+                                }
+                            }
+                        }
+                    )
+                }
+                
+                
+                
             }
-            .overlay(
-                //  This is the actual TabBar
-                TabBar(currentTab: $currentTab, bottomSpace: bottomSpace),
-                alignment: .bottom
-            )
-            
-            
+            .padding(.horizontal, 25)
         }
-        .padding(.horizontal, 25)
-        .padding(.vertical)
     }
 }
 
 struct Dashboard_Previews: PreviewProvider {
     static var previews: some View {
+//        DashboardView()
+//            .environmentObject(Network())
         GeometryReader{ proxy in
             let bottomSpace = proxy.safeAreaInsets.bottom
-            DashboardView(bottomSpace: bottomSpace == 0 ? 12 : bottomSpace)
+            TabBarSkeleton(bottomSpace: bottomSpace == 0 ? 12 : bottomSpace)
                 .environmentObject(Network())
                 .ignoresSafeArea(.all, edges: .bottom)
         }
