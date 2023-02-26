@@ -13,18 +13,22 @@ class Parkingspot: Identifiable, Decodable, Equatable {
     }
     
     var _id: String
+    var p_owner: String
     var p_number: Int
-    var p_availablefrom: String
-    var p_availableuntil: String
     var p_priceperhour: String
+    var p_tags: [String]
+    var pt_availability: Timeframe
+    var pr_reservations: [Reservation]
     var pa_address: Address
     
     init(_id: String, p_number: Int) {
         self._id = _id
+        self.p_owner = "testid"
         self.p_number = p_number
-        self.p_availablefrom = "01.01.2023"
-        self.p_availableuntil = "31.01.2023"
         self.p_priceperhour = "7€"
+        self.p_tags = ["ladestation","garage"]
+        self.pt_availability = Timeframe(_id: "1")
+        self.pr_reservations = [Reservation(_id: "1")]
         self.pa_address = Address()
     }
 }

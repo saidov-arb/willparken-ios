@@ -9,6 +9,22 @@ import SwiftUI
 
 struct ParkingspotCard: View {
     var parkingspot: Parkingspot
+    
+    func morphDateIntToString(iDate: Int) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        guard let date = dateFormatter.date(from: String(iDate)) else { return "" }
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        return dateFormatter.string(from: date)
+    }
+    
+    func morphTimeIntToString(iTime: Int) -> String{
+        let betterTime = DateComponents(hour: iTime / 60, minute: iTime % 60)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from: Calendar.current.date(from: betterTime)!)
+    }
+    
     var body: some View {
         ZStack{
             HStack{
@@ -30,27 +46,27 @@ struct ParkingspotCard: View {
                         Image(systemName: "mappin.and.ellipse")
                         Text("\(parkingspot.pa_address.a_zip)")
                         Divider().frame(height: 20).background(.blue)
-                        Text("\(parkingspot.pa_address.a_address1)")
+                        Text("\(parkingspot.pa_address.a_street)")
                         Divider().frame(height: 20).background(.blue)
                         Text("\(parkingspot.p_number)")
                     }
                     HStack{
                         Image(systemName: "clock")
-                        Text("08:00")
+                        Text("\(morphTimeIntToString(iTime: parkingspot.pt_availability.t_timefrom))")
                         Text("-")
-                        Text("16:00")
+                        Text("\(morphTimeIntToString(iTime: parkingspot.pt_availability.t_timeuntil))")
                     }
                     HStack{
                         Image(systemName: "calendar")
-                        Text("\(parkingspot.p_availablefrom)")
+                        Text("\(morphDateIntToString(iDate: parkingspot.pt_availability.t_dayfrom))")
                         Text("-")
-                        Text("\(parkingspot.p_availableuntil)")
+                        Text("\(morphDateIntToString(iDate: parkingspot.pt_availability.t_dayuntil))")
                     }
                     HStack{
                         Image(systemName: "7.square")
-                        let weekdays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
-                        ForEach(weekdays, id: \.self) { day in
-                            Text(day)
+                        let weekdays = ["", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+                        ForEach(parkingspot.pt_availability.t_weekday, id: \.self) { dayIndex in
+                            Text(weekdays[dayIndex])
                                 .frame(width: 30,height: 25)
                                 .background(Color(red: 0.85, green: 0.85, blue: 1))
                                 .cornerRadius(10)

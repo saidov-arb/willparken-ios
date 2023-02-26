@@ -20,6 +20,7 @@ class User: Identifiable, Decodable, ObservableObject {
     var u_lastname: String
     var uc_cars: [Car]
     var up_parkingspots: [String]
+    var ur_reservations: [String]
     
     init() {
         self._id = "testid"
@@ -29,6 +30,7 @@ class User: Identifiable, Decodable, ObservableObject {
         self.u_lastname = "testlastname"
         self.uc_cars = [Car(_id: "1"),Car(_id: "2")]
         self.up_parkingspots = ["1","2","3"]
+        self.ur_reservations = ["1"]
     }
 }
 

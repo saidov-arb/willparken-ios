@@ -223,8 +223,8 @@ struct ParkingspotEdit: View {
         country = parkingspot.pa_address.a_country
         city = parkingspot.pa_address.a_city
         zip = parkingspot.pa_address.a_zip
-        street = parkingspot.pa_address.a_address1
-        houseno = parkingspot.pa_address.a_address2
+        street = parkingspot.pa_address.a_street
+        houseno = parkingspot.pa_address.a_houseno
     }
 }
 

@@ -23,7 +23,7 @@ class Timeframe: Identifiable, Decodable {
     
     init(_id: String){
         self._id = _id
-        self.t_weekday = [5,6,7]
+        self.t_weekday = [1,2,3,4,5,6,7]
         self.t_dayfrom = 20230101
         self.t_dayuntil = 20230228
         self.t_timefrom = 480

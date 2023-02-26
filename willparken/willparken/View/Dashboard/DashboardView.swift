@@ -34,7 +34,7 @@ struct DashboardView: View {
                                         Image(systemName: "mappin.and.ellipse")
                                         Text("\(iParkingspot.pa_address.a_zip)")
                                         Divider().frame(height: 20).background(.blue)
-                                        Text("\(iParkingspot.pa_address.a_address1)")
+                                        Text("\(iParkingspot.pa_address.a_street)")
                                         Divider().frame(height: 20).background(.blue)
                                         Text("\(iParkingspot.p_number)")
                                     }
