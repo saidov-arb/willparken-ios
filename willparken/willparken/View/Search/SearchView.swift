@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @EnvironmentObject var network: Network
+    @EnvironmentObject var network: WPapi
     
     var body: some View {
         VStack {
@@ -20,6 +20,6 @@ struct SearchView: View {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
-            .environmentObject(Network())
+            .environmentObject(WPapi())
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @EnvironmentObject var network: Network
+    @EnvironmentObject var network: WPapi
     
     var body: some View {
         VStack {
@@ -20,6 +20,6 @@ struct ProfileView: View {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
-            .environmentObject(Network())
+            .environmentObject(WPapi())
     }
 }

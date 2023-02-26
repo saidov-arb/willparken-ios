@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var network: Network
+    @EnvironmentObject var network: WPapi
     @Binding var registerSwitch: Bool
     @State private var username: String = ""
     @State private var password: String = ""

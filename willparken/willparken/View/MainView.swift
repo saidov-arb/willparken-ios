@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var network: Network
+    @EnvironmentObject var network: WPapi
     //loginRegisterSwitch (when false then login, when true then register)
     @State var registerSwitch: Bool = false
     var body: some View {
@@ -21,7 +21,6 @@ struct MainView: View {
                 LoginView(registerSwitch: $registerSwitch)
                     .environmentObject(network)
             }
-
         } else {
             //  This GeometryReader is helpful to measure the safeAreas
             //  In this case the bottom safeArea is needed, so that the tabbar has the correct padding
@@ -38,6 +37,6 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
-            .environmentObject(Network())
+            .environmentObject(WPapi())
     }
 }

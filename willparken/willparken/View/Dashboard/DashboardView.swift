@@ -8,36 +8,38 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @EnvironmentObject var network: Network
+    @EnvironmentObject var network: WPapi
     
     var body: some View {
         
         NavigationView {
-            ScrollView{
+            ScrollView(showsIndicators: false){
                 WPTitle(title: "WillParken", description: "Bleib stabil.")
                     .padding(.bottom, 25)
                 
-                
                 DashboardCard(title: "Your Parkingspots (\(network.testParkingspots!.count))", destination: {
                     AnyView(
-                        Text("All Parkingspots of User will be displayed here.")
+                        ParkingspotsList()
+                            .environmentObject(network)
                     )
                 }) {
                     AnyView(
                         ForEach(network.testParkingspots!.prefix(3)){ iParkingspot in
                             HStack{
                                 Image(systemName: "parkingsign.circle.fill")
-                                    .font(.largeTitle)
-                                    .padding([.leading,.trailing],10)
+                                    .font(.title)
+                                    .padding([.leading,.trailing],5)
                                 VStack (alignment: .leading){
-                                    Text("\(iParkingspot.pa_address.a_zip) \(iParkingspot.pa_address.a_city)")
-                                        .font(.title3)
-                                    Text("\(iParkingspot.pa_address.a_address1)")
-                                        .font(.body)
+                                    HStack{
+                                        Image(systemName: "mappin.and.ellipse")
+                                        Text("\(iParkingspot.pa_address.a_zip)")
+                                        Divider().frame(height: 20).background(.blue)
+                                        Text("\(iParkingspot.pa_address.a_address1)")
+                                        Divider().frame(height: 20).background(.blue)
+                                        Text("\(iParkingspot.p_number)")
+                                    }
                                 }
-                                Spacer()
-                                Text("\(iParkingspot.p_number)")
-                                    .font(.largeTitle)
+                                .lineLimit(1)
                                 Spacer()
                             }
                         }
@@ -53,25 +55,26 @@ struct DashboardView: View {
                         ForEach(network.testUser!.uc_cars.prefix(3)){ iCar in
                             HStack{
                                 Image(systemName: "car.fill")
-                                    .font(.largeTitle)
-                                    .padding([.leading,.trailing],10)
+                                    .font(.title)
+                                    .padding([.leading,.trailing],5)
                                 VStack (alignment: .leading){
-                                    Text("\(iCar.c_brand) \(iCar.c_model)")
-                                        .font(.title2)
-                                        .textCase(.uppercase)
-                                    Text("\(iCar.c_licenceplate)")
-                                        .font(.title2)
-                                        .textCase(.uppercase)
+                                    HStack{
+                                        Text("\(iCar.c_brand) \(iCar.c_model)")
+                                        Divider().frame(height: 20).background(.blue)
+                                        Text("\(iCar.c_licenceplate)")
+                                    }
+                                    .textCase(.uppercase)
                                 }
                             }
                         }
                     )
                 }
                 
-                
-                
+                Rectangle()
+                    .foregroundColor(Color(.black).opacity(0))
+                    .frame(height: 50)
             }
-            .padding(.horizontal, 25)
+            .padding(.horizontal, 15)
         }
     }
 }
@@ -83,7 +86,7 @@ struct Dashboard_Previews: PreviewProvider {
         GeometryReader{ proxy in
             let bottomSpace = proxy.safeAreaInsets.bottom
             TabBarSkeleton(bottomSpace: bottomSpace == 0 ? 12 : bottomSpace)
-                .environmentObject(Network())
+                .environmentObject(WPapi())
                 .ignoresSafeArea(.all, edges: .bottom)
         }
     }

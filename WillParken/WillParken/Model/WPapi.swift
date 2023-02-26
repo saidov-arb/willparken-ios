@@ -1,16 +1,17 @@
 //
-//  Network.swift
+//  WPapi.swift
 //  WillParken
 //
 //  Created by Arbi Said on 21.01.23.
 //
 //
 //  https://designcode.io/swiftui-advanced-handbook-http-request
+//  https://medium.com/@nutanbhogendrasharma/consume-rest-api-in-swiftui-ios-mobile-app-b3c5d6ecf401
 
 import Foundation
 import CommonCrypto
 
-class Network: ObservableObject{
+class WPapi: ObservableObject{
     @Published var users: [User]? = []
     @Published var parkingspots: [Parkingspot]? = []
     @Published var currentUser: User? = nil
@@ -18,10 +19,16 @@ class Network: ObservableObject{
     @Published var testParkingspots: [Parkingspot]? = [
         Parkingspot(_id: "1", p_number: 1),
         Parkingspot(_id: "2", p_number: 2),
-        Parkingspot(_id: "3", p_number: 3)
+        Parkingspot(_id: "3", p_number: 3),
+        Parkingspot(_id: "4", p_number: 4),
+        Parkingspot(_id: "5", p_number: 5),
+        Parkingspot(_id: "6", p_number: 6),
+        Parkingspot(_id: "7", p_number: 7),
+        Parkingspot(_id: "8", p_number: 8),
+        Parkingspot(_id: "9", p_number: 9),
     ]
     
-    private final var APIURL: String = "http://localhost:3000"
+    private final var APIURL: String = "http://192.168.0.7:3000"
     
     func loginUser(iUsername: String, iPassword: String){
         //  At first, the data has to be organized in a struct

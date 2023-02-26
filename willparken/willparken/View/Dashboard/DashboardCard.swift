@@ -18,6 +18,7 @@ struct DashboardCard: View {
             Group {
                 NavigationLink {
                     destination()
+                        .navigationTitle(title)
                 } label: {
                     VStack{
                         HStack{
@@ -29,19 +30,18 @@ struct DashboardCard: View {
                     }
                 }
                 .font(.title2)
+                .padding([.leading,.trailing,.top],10)
                 
                 container()
+                    .padding([.leading,.trailing,.bottom],10)
             }
-            .padding(10)
-            
-
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.purple.opacity(0.05))
         .overlay(
             RoundedRectangle(cornerRadius: 12).stroke(.blue)
         )
-        .padding(5)
+        .padding(3)
     }
 }
 

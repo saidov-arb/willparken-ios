@@ -12,19 +12,29 @@
 		B30E2C7A296EA21200064A55 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B30E2C79296EA21200064A55 /* Preview Assets.xcassets */; };
 		B30E8D60297C3AA60092FD63 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D5F297C3AA60092FD63 /* RegisterView.swift */; };
 		B30E8D62297C40FC0092FD63 /* WPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D61297C40FC0092FD63 /* WPTextField.swift */; };
-		B30E8D65297C7DB40092FD63 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D64297C7DB40092FD63 /* Network.swift */; };
+		B30E8D65297C7DB40092FD63 /* WPapi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D64297C7DB40092FD63 /* WPapi.swift */; };
 		B30E8D67297C7E0F0092FD63 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D66297C7E0F0092FD63 /* User.swift */; };
 		B30E8D69297C7EF00092FD63 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E8D68297C7EF00092FD63 /* Car.swift */; };
-		B30F654D298404B800CCEF09 /* ParkingspotSlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30F654C298404B800CCEF09 /* ParkingspotSlotView.swift */; };
 		B322BA6A29859E7000889FAF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322BA6929859E7000889FAF /* HTTPMethod.swift */; };
+		B3538C4629A816940083CF5B /* ParkingspotEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3538C4529A816940083CF5B /* ParkingspotEdit.swift */; };
 		B35BF413297C018A00407CED /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BF412297C018A00407CED /* DashboardView.swift */; };
 		B35BF415297C091400407CED /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BF414297C091400407CED /* MainView.swift */; };
+		B362F4F2299912B1004791D4 /* TabBarSkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B362F4F1299912B1004791D4 /* TabBarSkeleton.swift */; };
+		B362F4F6299913F6004791D4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B362F4F5299913F6004791D4 /* SearchView.swift */; };
+		B362F4F829991416004791D4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B362F4F729991416004791D4 /* ProfileView.swift */; };
 		B3726800298688E500E50D1A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37267FF298688E500E50D1A /* LoginView.swift */; };
 		B37268022986905C00E50D1A /* WPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37268012986905C00E50D1A /* WPButton.swift */; };
+		B3793A9329A3BDAE00B99EA9 /* ParkingspotsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3793A9229A3BDAE00B99EA9 /* ParkingspotsList.swift */; };
+		B3793A9529A3C27F00B99EA9 /* ParkingspotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3793A9429A3C27F00B99EA9 /* ParkingspotCard.swift */; };
+		B3833EF6299AC48C000F9DFD /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3833EF5299AC48C000F9DFD /* DashboardCard.swift */; };
+		B39CE11D2996CA6200B257E9 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39CE11C2996CA6200B257E9 /* TabBar.swift */; };
+		B39CE1202996CB0E00B257E9 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39CE11F2996CB0E00B257E9 /* TabBarButton.swift */; };
 		B39E88162983E188000A1CB5 /* Parkingspot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E88152983E188000A1CB5 /* Parkingspot.swift */; };
 		B39E88182983E1FC000A1CB5 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E88172983E1FC000A1CB5 /* Address.swift */; };
-		B3D6D0CD2975801800B28336 /* MainTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6D0CC2975801800B28336 /* MainTitleView.swift */; };
-		B3D6D0CF2975838500B28336 /* ServiceObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6D0CE2975838500B28336 /* ServiceObjectView.swift */; };
+		B3CE691B29AB8AFF0086A2BF /* Mapapi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CE691A29AB8AFF0086A2BF /* Mapapi.swift */; };
+		B3D1678029A65D23006BEE54 /* Timeframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D1677F29A65D23006BEE54 /* Timeframe.swift */; };
+		B3D6D0CD2975801800B28336 /* WPTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6D0CC2975801800B28336 /* WPTitle.swift */; };
+		B3D873DF29ABEE6E00F63307 /* WPTagContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D873DE29ABEE6E00F63307 /* WPTagContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,20 +44,31 @@
 		B30E2C79296EA21200064A55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B30E8D5F297C3AA60092FD63 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B30E8D61297C40FC0092FD63 /* WPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPTextField.swift; sourceTree = "<group>"; };
-		B30E8D64297C7DB40092FD63 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		B30E8D64297C7DB40092FD63 /* WPapi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPapi.swift; sourceTree = "<group>"; };
 		B30E8D66297C7E0F0092FD63 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B30E8D68297C7EF00092FD63 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
-		B30F654C298404B800CCEF09 /* ParkingspotSlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingspotSlotView.swift; sourceTree = "<group>"; };
 		B322BA6829859C4A00889FAF /* Tryout.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Tryout.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B322BA6929859E7000889FAF /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		B3538C4529A816940083CF5B /* ParkingspotEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingspotEdit.swift; sourceTree = "<group>"; };
 		B35BF412297C018A00407CED /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		B35BF414297C091400407CED /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B362F4F1299912B1004791D4 /* TabBarSkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarSkeleton.swift; sourceTree = "<group>"; };
+		B362F4F5299913F6004791D4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		B362F4F729991416004791D4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B37267FF298688E500E50D1A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B37268012986905C00E50D1A /* WPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPButton.swift; sourceTree = "<group>"; };
+		B3793A9229A3BDAE00B99EA9 /* ParkingspotsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingspotsList.swift; sourceTree = "<group>"; };
+		B3793A9429A3C27F00B99EA9 /* ParkingspotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingspotCard.swift; sourceTree = "<group>"; };
+		B3833EF5299AC48C000F9DFD /* DashboardCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCard.swift; sourceTree = "<group>"; };
+		B39CE11C2996CA6200B257E9 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		B39CE11F2996CB0E00B257E9 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		B39E88152983E188000A1CB5 /* Parkingspot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parkingspot.swift; sourceTree = "<group>"; };
 		B39E88172983E1FC000A1CB5 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		B3D6D0CC2975801800B28336 /* MainTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleView.swift; sourceTree = "<group>"; };
-		B3D6D0CE2975838500B28336 /* ServiceObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceObjectView.swift; sourceTree = "<group>"; };
+		B3CE691829AB86E30086A2BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B3CE691A29AB8AFF0086A2BF /* Mapapi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapapi.swift; sourceTree = "<group>"; };
+		B3D1677F29A65D23006BEE54 /* Timeframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeframe.swift; sourceTree = "<group>"; };
+		B3D6D0CC2975801800B28336 /* WPTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPTitle.swift; sourceTree = "<group>"; };
+		B3D873DE29ABEE6E00F63307 /* WPTagContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPTagContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +102,7 @@
 		B30E2C71296EA21100064A55 /* WillParken */ = {
 			isa = PBXGroup;
 			children = (
+				B3CE691829AB86E30086A2BF /* Info.plist */,
 				B30E8D63297C7D620092FD63 /* Model */,
 				B30E2C81296EA26C00064A55 /* View */,
 				B30E2C80296EA26700064A55 /* App */,
@@ -102,10 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				B30E2C72296EA21100064A55 /* WillParkenApp.swift */,
-				B35BF414297C091400407CED /* MainView.swift */,
-				B35BF412297C018A00407CED /* DashboardView.swift */,
-				B30E8D5F297C3AA60092FD63 /* RegisterView.swift */,
-				B37267FF298688E500E50D1A /* LoginView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -113,11 +131,14 @@
 		B30E2C81296EA26C00064A55 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B3D6D0CC2975801800B28336 /* MainTitleView.swift */,
-				B3D6D0CE2975838500B28336 /* ServiceObjectView.swift */,
-				B30E8D61297C40FC0092FD63 /* WPTextField.swift */,
-				B30F654C298404B800CCEF09 /* ParkingspotSlotView.swift */,
-				B37268012986905C00E50D1A /* WPButton.swift */,
+				B39CE11B2996C34300B257E9 /* WPCommonViews */,
+				B39CE11E2996CAE900B257E9 /* TabBar */,
+				B351A3E529A10907006AD055 /* Parkingspot */,
+				B362F4F4299913CB004791D4 /* Profile */,
+				B39CE11A2996C2F000B257E9 /* Dashboard */,
+				B362F4F3299913AD004791D4 /* Search */,
+				B39CE1192996C2DB00B257E9 /* LoginRegister */,
+				B35BF414297C091400407CED /* MainView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -125,14 +146,89 @@
 		B30E8D63297C7D620092FD63 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B3CE691929AB8AD50086A2BF /* Data */,
 				B322BA6929859E7000889FAF /* HTTPMethod.swift */,
-				B30E8D64297C7DB40092FD63 /* Network.swift */,
+				B30E8D64297C7DB40092FD63 /* WPapi.swift */,
+				B3CE691A29AB8AFF0086A2BF /* Mapapi.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B351A3E529A10907006AD055 /* Parkingspot */ = {
+			isa = PBXGroup;
+			children = (
+				B3793A9229A3BDAE00B99EA9 /* ParkingspotsList.swift */,
+				B3793A9429A3C27F00B99EA9 /* ParkingspotCard.swift */,
+				B3538C4529A816940083CF5B /* ParkingspotEdit.swift */,
+			);
+			path = Parkingspot;
+			sourceTree = "<group>";
+		};
+		B362F4F3299913AD004791D4 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				B362F4F5299913F6004791D4 /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		B362F4F4299913CB004791D4 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B362F4F729991416004791D4 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		B39CE1192996C2DB00B257E9 /* LoginRegister */ = {
+			isa = PBXGroup;
+			children = (
+				B30E8D5F297C3AA60092FD63 /* RegisterView.swift */,
+				B37267FF298688E500E50D1A /* LoginView.swift */,
+			);
+			path = LoginRegister;
+			sourceTree = "<group>";
+		};
+		B39CE11A2996C2F000B257E9 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				B35BF412297C018A00407CED /* DashboardView.swift */,
+				B3833EF5299AC48C000F9DFD /* DashboardCard.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		B39CE11B2996C34300B257E9 /* WPCommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				B3D6D0CC2975801800B28336 /* WPTitle.swift */,
+				B37268012986905C00E50D1A /* WPButton.swift */,
+				B30E8D61297C40FC0092FD63 /* WPTextField.swift */,
+				B3D873DE29ABEE6E00F63307 /* WPTagContainer.swift */,
+			);
+			path = WPCommonViews;
+			sourceTree = "<group>";
+		};
+		B39CE11E2996CAE900B257E9 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				B362F4F1299912B1004791D4 /* TabBarSkeleton.swift */,
+				B39CE11C2996CA6200B257E9 /* TabBar.swift */,
+				B39CE11F2996CB0E00B257E9 /* TabBarButton.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		B3CE691929AB8AD50086A2BF /* Data */ = {
+			isa = PBXGroup;
+			children = (
 				B30E8D66297C7E0F0092FD63 /* User.swift */,
 				B30E8D68297C7EF00092FD63 /* Car.swift */,
 				B39E88152983E188000A1CB5 /* Parkingspot.swift */,
 				B39E88172983E1FC000A1CB5 /* Address.swift */,
+				B3D1677F29A65D23006BEE54 /* Timeframe.swift */,
 			);
-			path = Model;
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,21 +301,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B362F4F6299913F6004791D4 /* SearchView.swift in Sources */,
+				B3CE691B29AB8AFF0086A2BF /* Mapapi.swift in Sources */,
 				B35BF415297C091400407CED /* MainView.swift in Sources */,
-				B3D6D0CD2975801800B28336 /* MainTitleView.swift in Sources */,
+				B3D6D0CD2975801800B28336 /* WPTitle.swift in Sources */,
 				B30E8D69297C7EF00092FD63 /* Car.swift in Sources */,
+				B3D873DF29ABEE6E00F63307 /* WPTagContainer.swift in Sources */,
 				B3726800298688E500E50D1A /* LoginView.swift in Sources */,
-				B30F654D298404B800CCEF09 /* ParkingspotSlotView.swift in Sources */,
+				B3833EF6299AC48C000F9DFD /* DashboardCard.swift in Sources */,
+				B362F4F2299912B1004791D4 /* TabBarSkeleton.swift in Sources */,
+				B39CE1202996CB0E00B257E9 /* TabBarButton.swift in Sources */,
+				B3538C4629A816940083CF5B /* ParkingspotEdit.swift in Sources */,
 				B322BA6A29859E7000889FAF /* HTTPMethod.swift in Sources */,
-				B30E8D65297C7DB40092FD63 /* Network.swift in Sources */,
+				B30E8D65297C7DB40092FD63 /* WPapi.swift in Sources */,
+				B39CE11D2996CA6200B257E9 /* TabBar.swift in Sources */,
+				B3793A9529A3C27F00B99EA9 /* ParkingspotCard.swift in Sources */,
 				B30E2C73296EA21100064A55 /* WillParkenApp.swift in Sources */,
+				B3793A9329A3BDAE00B99EA9 /* ParkingspotsList.swift in Sources */,
 				B39E88162983E188000A1CB5 /* Parkingspot.swift in Sources */,
 				B39E88182983E1FC000A1CB5 /* Address.swift in Sources */,
 				B30E8D60297C3AA60092FD63 /* RegisterView.swift in Sources */,
 				B30E8D67297C7E0F0092FD63 /* User.swift in Sources */,
 				B37268022986905C00E50D1A /* WPButton.swift in Sources */,
 				B35BF413297C018A00407CED /* DashboardView.swift in Sources */,
-				B3D6D0CF2975838500B28336 /* ServiceObjectView.swift in Sources */,
+				B3D1678029A65D23006BEE54 /* Timeframe.swift in Sources */,
+				B362F4F829991416004791D4 /* ProfileView.swift in Sources */,
 				B30E8D62297C40FC0092FD63 /* WPTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,7 +459,7 @@
 				DEVELOPMENT_ASSET_PATHS = "WillParken/Preview\\ Content";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				INFOPLIST_FILE = WillParken/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -381,7 +487,7 @@
 				DEVELOPMENT_ASSET_PATHS = "WillParken/Preview\\ Content";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				INFOPLIST_FILE = WillParken/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

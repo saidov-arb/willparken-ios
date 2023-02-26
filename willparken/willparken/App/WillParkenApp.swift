@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct WillParkenApp: App {
     
-    var network = Network()
+    var network = WPapi()
     
     var body: some Scene {
         WindowGroup {

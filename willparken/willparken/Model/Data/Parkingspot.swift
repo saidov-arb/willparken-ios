@@ -7,7 +7,11 @@
 
 import Foundation
 
-class Parkingspot: Identifiable, Decodable {
+class Parkingspot: Identifiable, Decodable, Equatable {
+    static func == (lhs: Parkingspot, rhs: Parkingspot) -> Bool {
+        return lhs._id == rhs._id
+    }
+    
     var _id: String
     var p_number: Int
     var p_availablefrom: String
