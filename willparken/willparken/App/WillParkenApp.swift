@@ -10,8 +10,6 @@ import SwiftUI
 @main
 struct WillParkenApp: App {
     
-    var network = Network()
-    
     var body: some Scene {
         WindowGroup {
 //            var user = network.users![0]
@@ -19,7 +17,7 @@ struct WillParkenApp: App {
             //  to another View, while the developer doesn't have to
             //  take care of updating the Values over and over again.
             MainView()
-                .environmentObject(network)
+                .environmentObject(WPViewModel())
         }
     }
 }
