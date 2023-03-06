@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @EnvironmentObject var network: WPapi
+    @EnvironmentObject var wpvm: WPViewModel
     
     var body: some View {
         
@@ -17,57 +17,66 @@ struct DashboardView: View {
                 WPTitle(title: "WillParken", description: "Bleib stabil.")
                     .padding(.bottom, 25)
                 
-                DashboardCard(title: "Your Parkingspots (\(network.testParkingspots!.count))", destination: {
+                DashboardCard(title: "Your Parkingspots (\(wpvm.currentParkingspots?.count ?? 0))", destination: {
                     AnyView(
                         ParkingspotsList()
-                            .environmentObject(network)
+                            .environmentObject(wpvm.wpapi)
                     )
                 }) {
-                    AnyView(
-                        ForEach(network.testParkingspots!.prefix(3)){ iParkingspot in
-                            HStack{
-                                Image(systemName: "parkingsign.circle.fill")
-                                    .font(.title)
-                                    .padding([.leading,.trailing],5)
-                                VStack (alignment: .leading){
-                                    HStack{
-                                        Image(systemName: "mappin.and.ellipse")
-                                        Text("\(iParkingspot.pa_address.a_zip)")
-                                        Divider().frame(height: 20).background(.blue)
-                                        Text("\(iParkingspot.pa_address.a_street)")
-                                        Divider().frame(height: 20).background(.blue)
-                                        Text("\(iParkingspot.p_number)")
+                    if let parkingspots = wpvm.currentParkingspots {
+                        return AnyView(
+                            ForEach(parkingspots.prefix(3)) { iParkingspot in
+                                HStack{
+                                    Image(systemName: "parkingsign.circle.fill")
+                                        .font(.title)
+                                        .padding([.leading,.trailing],5)
+                                    VStack (alignment: .leading){
+                                        HStack{
+                                            Image(systemName: "mappin.and.ellipse")
+                                            Text("\(iParkingspot.pa_address.a_zip)")
+                                            Divider().frame(height: 20).background(.blue)
+                                            Text("\(iParkingspot.pa_address.a_street)")
+                                            Divider().frame(height: 20).background(.blue)
+                                            Text("\(iParkingspot.p_number)")
+                                        }
                                     }
+                                    .lineLimit(1)
+                                    Spacer()
                                 }
-                                .lineLimit(1)
-                                Spacer()
                             }
-                        }
-                    )
+                        )
+                    } else {
+                        return AnyView(EmptyView())
+                    }
                 }
                 
-                DashboardCard(title: "Your Cars (\(network.testUser!.uc_cars.count))", destination: {
+                DashboardCard(title: "Your Cars (\(wpvm.currentUser?.uc_cars.count ?? 0))", destination: {
                     AnyView(
-                        Text("All Cars of User will be displayed here.")
+                        CarList()
+                            .environmentObject(wpvm.wpapi)
                     )
                 }) {
-                    AnyView(
-                        ForEach(network.testUser!.uc_cars.prefix(3)){ iCar in
-                            HStack{
-                                Image(systemName: "car.fill")
-                                    .font(.title)
-                                    .padding([.leading,.trailing],5)
-                                VStack (alignment: .leading){
-                                    HStack{
-                                        Text("\(iCar.c_brand) \(iCar.c_model)")
-                                        Divider().frame(height: 20).background(.blue)
-                                        Text("\(iCar.c_licenceplate)")
+                    if let cars = wpvm.currentUser?.uc_cars {
+                        return AnyView(
+                            ForEach(cars.prefix(3)){ iCar in
+                                HStack{
+                                    Image(systemName: "car.fill")
+                                        .font(.title)
+                                        .padding([.leading,.trailing],5)
+                                    VStack (alignment: .leading){
+                                        HStack{
+                                            Text("\(iCar.c_brand) \(iCar.c_model)")
+                                            Divider().frame(height: 20).background(.blue)
+                                            Text("\(iCar.c_licenceplate)")
+                                        }
+                                        .textCase(.uppercase)
                                     }
-                                    .textCase(.uppercase)
                                 }
                             }
-                        }
-                    )
+                        )
+                    }else{
+                        return AnyView(EmptyView())
+                    }
                 }
                 
                 Rectangle()
@@ -75,6 +84,14 @@ struct DashboardView: View {
                     .frame(height: 50)
             }
             .padding(.horizontal, 15)
+        }
+        .refreshable {
+            wpvm.loadParkingspotsFromUser()
+            wpvm.loadCarsFromUser()
+        }
+        .onAppear {
+            wpvm.loadParkingspotsFromUser()
+            wpvm.loadCarsFromUser()
         }
     }
 }
@@ -86,7 +103,7 @@ struct Dashboard_Previews: PreviewProvider {
         GeometryReader{ proxy in
             let bottomSpace = proxy.safeAreaInsets.bottom
             TabBarSkeleton(bottomSpace: bottomSpace == 0 ? 12 : bottomSpace)
-                .environmentObject(WPapi())
+                .environmentObject(WPViewModel())
                 .ignoresSafeArea(.all, edges: .bottom)
         }
     }

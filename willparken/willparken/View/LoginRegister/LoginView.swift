@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var network: WPapi
+    @EnvironmentObject var wpvm: WPViewModel
     @Binding var registerSwitch: Bool
     @State private var username: String = ""
     @State private var password: String = ""
@@ -38,7 +38,7 @@ struct LoginView: View {
                         print("One or more fields are empty.")
                         return
                     }
-                    network.loginUser(iUsername: username, iPassword: password)
+                    wpvm.loginUser(iUsername: username, iPassword: password)
                 }
                 
                 WPButton(backgroundColor: .white, foregroundColor: .blue, label: "Register") {
@@ -58,6 +58,7 @@ struct LoginViewTest: View {
     @State var registerSwitch: Bool = false
     var body: some View {
         LoginView(registerSwitch: $registerSwitch)
+            .environmentObject(WPViewModel())
     }
 }
 

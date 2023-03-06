@@ -7,16 +7,33 @@
 
 import Foundation
 
-class Reservation: Identifiable, Decodable {
+class Reservation: Identifiable, Codable {
     var _id: String
     var ru_user: String
-    var rc_car: Car
+    var rc_car: String
     var rt_timeframe: Timeframe
+    var r_cancelled: Bool
     
-    init(_id: String){
-        self._id = _id
-        self.ru_user = "testid"
-        self.rc_car = Car(_id: "1")
-        self.rt_timeframe = Timeframe(_id: "1")
+    enum CodingKeys: String, CodingKey {
+        case _id
+        case ru_user
+        case rc_car
+        case rt_timeframe
+        case r_cancelled
+    }
+}
+
+extension Reservation {
+    static func makeSampleReservation() -> Reservation? {
+        var reservation: Reservation? = nil
+        if let path = Bundle.main.path(forResource: "SampleReservation", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(filePath: path), options: .mappedIfSafe)
+                reservation = try JSONDecoder().decode(Reservation.self, from: data)
+            } catch {
+                print("Error reading JSON file:", error)
+            }
+        }
+        return reservation
     }
 }

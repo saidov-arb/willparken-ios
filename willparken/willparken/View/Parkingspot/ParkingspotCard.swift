@@ -10,21 +10,6 @@ import SwiftUI
 struct ParkingspotCard: View {
     var parkingspot: Parkingspot
     
-    func morphDateIntToString(iDate: Int) -> String{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        guard let date = dateFormatter.date(from: String(iDate)) else { return "" }
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        return dateFormatter.string(from: date)
-    }
-    
-    func morphTimeIntToString(iTime: Int) -> String{
-        let betterTime = DateComponents(hour: iTime / 60, minute: iTime % 60)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        return dateFormatter.string(from: Calendar.current.date(from: betterTime)!)
-    }
-    
     var body: some View {
         ZStack{
             HStack{
@@ -33,7 +18,7 @@ struct ParkingspotCard: View {
                         .font(.largeTitle)
                         .padding([.leading,.trailing],5)
                     HStack{
-                        Text("10€")
+                        Text(String(self.parkingspot.p_priceperhour))
                     }
                     .padding(5)
                     .background(Color(red: 1, green: 0.95, blue: 0.7))
@@ -46,31 +31,31 @@ struct ParkingspotCard: View {
                         Image(systemName: "mappin.and.ellipse")
                         Text("\(parkingspot.pa_address.a_zip)")
                         Divider().frame(height: 20).background(.blue)
-                        Text("\(parkingspot.pa_address.a_street)")
+                        Text("\(parkingspot.pa_address.a_street) \(parkingspot.pa_address.a_houseno)")
                         Divider().frame(height: 20).background(.blue)
                         Text("\(parkingspot.p_number)")
                     }
                     HStack{
                         Image(systemName: "clock")
-                        Text("\(morphTimeIntToString(iTime: parkingspot.pt_availability.t_timefrom))")
+                        Text("\( parkingspot.pt_availability.timefromAsString)")
                         Text("-")
-                        Text("\(morphTimeIntToString(iTime: parkingspot.pt_availability.t_timeuntil))")
+                        Text("\( parkingspot.pt_availability.timeuntilAsString)")
                     }
                     HStack{
                         Image(systemName: "calendar")
-                        Text("\(morphDateIntToString(iDate: parkingspot.pt_availability.t_dayfrom))")
+                        Text("\( parkingspot.pt_availability.dayfromAsString)")
                         Text("-")
-                        Text("\(morphDateIntToString(iDate: parkingspot.pt_availability.t_dayuntil))")
+                        Text("\( parkingspot.pt_availability.dayuntilAsString)")
                     }
                     HStack{
                         Image(systemName: "7.square")
-                        let weekdays = ["", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
-                        ForEach(parkingspot.pt_availability.t_weekday, id: \.self) { dayIndex in
-                            Text(weekdays[dayIndex])
-                                .frame(width: 30,height: 25)
-                                .background(Color(red: 0.85, green: 0.85, blue: 1))
-                                .cornerRadius(10)
-                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 0.75, green: 0.75, blue: 1)).blur(radius: 2))
+                        if parkingspot.pt_availability.t_weekday.count == 7 || parkingspot.pt_availability.t_weekday.count == 0 {
+                            WeekdayView(dayIndex: 7)
+                        }else {
+                            ForEach(parkingspot.pt_availability.t_weekday, id: \.self) { dayIndex in
+                                WeekdayView(dayIndex: dayIndex-1)
+                                    .frame(maxWidth: 32)
+                            }
                         }
                     }
                 }
@@ -88,9 +73,8 @@ struct ParkingspotCard: View {
 }
 
 struct ParkingspotCardTest: View {
-    var parkingspot = Parkingspot(_id: "1", p_number: 1)
     var body: some View{
-        ParkingspotCard(parkingspot: parkingspot)
+        ParkingspotCard(parkingspot: Parkingspot.makeSampleParkingspot()!)
     }
 }
 

@@ -7,17 +7,37 @@
 
 import Foundation
 
-class Car: Identifiable, Decodable {
+class Car: Identifiable, Codable, Equatable {
+    static func == (lhs: Car, rhs: Car) -> Bool {
+        lhs._id == rhs._id
+    }
+    
     var _id: String
     var c_brand: String
     var c_model: String
     var c_licenceplate: String
+    var c_isreserved: Bool
     
-    init(_id: String) {
-        self._id = _id
-        self.c_brand = "bmw"
-        self.c_model = "336"
-        self.c_licenceplate = "WE187L3"
+    enum CodingKeys: String, CodingKey {
+        case _id
+        case c_brand
+        case c_model
+        case c_licenceplate
+        case c_isreserved
     }
 }
 
+extension Car {
+    static func makeSampleCar() -> Car? {
+        var car: Car? = nil
+        if let path = Bundle.main.path(forResource: "SampleCar", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(filePath: path), options: .mappedIfSafe)
+                car = try JSONDecoder().decode(Car.self, from: data)
+            } catch {
+                print("Error reading JSON file:", error)
+            }
+        }
+        return car
+    }
+}

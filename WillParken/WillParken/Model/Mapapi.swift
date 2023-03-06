@@ -30,7 +30,7 @@ class Mapapi: ObservableObject{
     private let API_KEY = "92d0989cebd26dea67f59db3a280d7a6"
     
     @Published var region: MKCoordinateRegion
-//    @Published var coordinates = []
+    @Published var coordinates = []
     @Published var locations: [MLocation] = []
     
     init() {
@@ -69,14 +69,16 @@ class Mapapi: ObservableObject{
                 let lon = details.longitude
                 let name = details.name
                 
-//                self.coordinates = [lat,lon]
+                self.coordinates = [lat,lon]
                 
                 self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat, longitude: lon), span: MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta))
                 
                 let newLocation = MLocation(name: name ?? "pin", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+                let secondLocation = MLocation(name: name ?? "pin2", coordinate: CLLocationCoordinate2D(latitude: lat+0.01, longitude: lon+0.01))
                 
                 self.locations.removeAll()
                 self.locations.insert(newLocation, at: 0)
+                self.locations.append(secondLocation)
                 
                 print("Successfully loaded Location.")
             }

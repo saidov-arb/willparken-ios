@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabBarSkeleton: View {
-    @EnvironmentObject var network: WPapi
+    @EnvironmentObject var wpvm: WPViewModel
     @State var currentTab: String = "Dashboard"
     var bottomSpace: CGFloat
     
@@ -24,13 +24,13 @@ struct TabBarSkeleton: View {
         TabView (selection: $currentTab) {
             SearchView()
                 .tag("Search")
-                .environmentObject(network)
+                .environmentObject(wpvm)
             DashboardView()
                 .tag("Dashboard")
-                .environmentObject(network)
+                .environmentObject(wpvm)
             ProfileView()
                 .tag("Profile")
-                .environmentObject(network)
+                .environmentObject(wpvm)
         }
         .overlay(
             //  This is the actual TabBar
@@ -45,7 +45,7 @@ struct TabBarSkeleton_Previews: PreviewProvider {
         GeometryReader{ proxy in
             let bottomSpace = proxy.safeAreaInsets.bottom
             TabBarSkeleton(bottomSpace: bottomSpace == 0 ? 12 : bottomSpace)
-                .environmentObject(WPapi())
+                .environmentObject(WPViewModel())
                 .ignoresSafeArea(.all, edges: .bottom)
         }
     }

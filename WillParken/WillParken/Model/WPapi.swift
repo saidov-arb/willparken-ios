@@ -12,25 +12,13 @@ import Foundation
 import CommonCrypto
 
 class WPapi: ObservableObject{
-    @Published var users: [User]? = []
-    @Published var parkingspots: [Parkingspot]? = []
-    @Published var currentUser: User? = nil
-    @Published var testUser: User? = User()
-    @Published var testParkingspots: [Parkingspot]? = [
-        Parkingspot(_id: "1", p_number: 1),
-        Parkingspot(_id: "2", p_number: 2),
-        Parkingspot(_id: "3", p_number: 3),
-        Parkingspot(_id: "4", p_number: 4),
-        Parkingspot(_id: "5", p_number: 5),
-        Parkingspot(_id: "6", p_number: 6),
-        Parkingspot(_id: "7", p_number: 7),
-        Parkingspot(_id: "8", p_number: 8),
-        Parkingspot(_id: "9", p_number: 9),
-    ]
+    @Published var currentUser: User? = User.makeSampleUser()
+    @Published var parkingspots: [Parkingspot]? = Parkingspot.makeSampleParkingspotArray()
     
     private final var APIURL: String = "http://192.168.0.7:3000"
     
-    func loginUser(iUsername: String, iPassword: String){
+    //  MARK: - User -
+    func loginUser(iUsername: String, iPassword: String, success: @escaping (User?) -> Void) {
         //  At first, the data has to be organized in a struct
         struct LoginDataStruct: Encodable {
             let u_username: String
@@ -39,12 +27,7 @@ class WPapi: ObservableObject{
         let loginData = LoginDataStruct(u_username: iUsername, u_password: sha256(iPassword))
         //  Now just login the user (loginData will be converted to JSON inside the method)
         postDecodableObject(apiroute: "/users/login", httpmethod: HTTPMethod.POST, objectToSend: loginData) { (response: User?) in
-            if let response = response {
-                self.currentUser = response
-                print(self.currentUser!.u_email)
-            } else {
-                print("Katastrophe.")
-            }
+            success(response)
         } failure: { (error: String?) in
             if let error = error {
                 print(error)
@@ -52,7 +35,13 @@ class WPapi: ObservableObject{
         }
     }
     
-    func registerUser(iUsername: String, iEmail: String, iFirstname: String, iLastname: String, iPassword: String){
+    func getUser(success: @escaping (User?) -> Void){
+        fetchDecodableObject(apiroute: "/users/getUser") { (response: User?) in
+            success(response)
+        }
+    }
+    
+    func registerUser(iUsername: String, iEmail: String, iFirstname: String, iLastname: String, iPassword: String, success: @escaping (User?) -> Void){
         struct RegisterDataStruct: Encodable {
             let u_username: String
             let u_email: String
@@ -63,8 +52,7 @@ class WPapi: ObservableObject{
         let registerData = RegisterDataStruct(u_username: iUsername, u_email: iEmail, u_firstname: iFirstname, u_lastname: iLastname, u_password: sha256(iPassword))
         postDecodableObject(apiroute: "/users/register", httpmethod: HTTPMethod.POST, objectToSend: registerData) { (response: User?) in
             if let response = response {
-                self.currentUser = response
-                print(self.currentUser!.u_email)
+                success(response)
             } else {
                 print("Katastrophe.")
             }
@@ -74,20 +62,37 @@ class WPapi: ObservableObject{
             }
         }
     }
-    
-    func getUsers() {
-        fetchDecodableObject(apiroute: "/users") { (users: [User]?) in
-            self.users = users
-        }
-    }
-
-    func getParkingspots(){
-        fetchDecodableObject(apiroute: "/parkingspots") { (parkingspots: [Parkingspot]?) in
-            self.parkingspots = parkingspots
-        }
-    }
 
     
+    //  MARK: - Parkingspot -
+    func loadParkingspotsFromUser(success: @escaping ([Parkingspot]?) -> Void) {
+        fetchDecodableObject(apiroute: "/parkingspots/getUserParkingspots") { (response: [Parkingspot]?) in
+            if let response = response {
+                success(response)
+            }else{
+                print("Katastrophe.")
+            }
+        }
+    }
+    
+    
+    //  MARK: - Car -
+    func loadCarsFromUser(success: @escaping ([Car]?) -> Void) {
+        fetchDecodableObject(apiroute: "/users/getCars") { (response: [Car]?) in
+            if let response = response {
+                success(response)
+            }else{
+                print("Katastrophe.")
+            }
+        }
+    }
+    
+    
+    //  MARK: - API -
+    struct APIResponseWrapper<T: Decodable>: Decodable {
+        let message: String
+        let content: T
+    }
     
     /**
      * Source: https://stackoverflow.com/questions/59321972/how-to-make-a-function-that-returns-a-decodable-type-in-swift
@@ -96,9 +101,15 @@ class WPapi: ObservableObject{
      *      So when de Object is being decoded (`try JSONDecoder().decode(...)`) the completion Method
      *      will only be called, once this is finished.
      */
-    func fetchDecodableObject<T: Decodable>(apiroute: String, completion: @escaping (T?) -> Void){
+    func fetchDecodableObject<T: Decodable>(apiroute: String, success: @escaping (T?) -> Void){
         guard let url = URL(string: APIURL+apiroute) else {fatalError("Missing URL")}
-        let urlRequest = URLRequest(url: url)
+        var urlRequest = URLRequest(url: url)
+        
+        let sessionID = UserDefaults.standard.string(forKey: "cookie")
+        if let sessionID = sessionID {
+            urlRequest.setValue(sessionID, forHTTPHeaderField: "Cookie")
+            print("GET BEF REQUEST: \(sessionID)")
+        }
 
         let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let error = error {
@@ -107,16 +118,22 @@ class WPapi: ObservableObject{
             }
 
             guard let response = response as? HTTPURLResponse else { return }
+            
+            if let setCookieHeader = response.allHeaderFields["Set-Cookie"] as? String {
+                    UserDefaults.standard.set(setCookieHeader, forKey: "cookie")
+                print("GET AFT REQUEST: \(setCookieHeader)")
+            }
 
             if response.statusCode == 200 {
                 guard let data = data else { return }
                 DispatchQueue.main.async {
                     do {
-                        let decodedObject = try JSONDecoder().decode(T.self, from: data)
-                        completion(decodedObject)
+                        let decodedWrapper = try JSONDecoder().decode(APIResponseWrapper<T>.self, from: data)
+                        let decodedObject = decodedWrapper.content
+                        success(decodedObject)
                     } catch let error {
                         print("Error decoding: ", error)
-                        completion(nil)
+                        success(nil)
                     }
                 }
             }
@@ -135,6 +152,13 @@ class WPapi: ObservableObject{
     func postDecodableObject<T: Decodable, U: Encodable>(apiroute: String, httpmethod: HTTPMethod, objectToSend: U, success: @escaping (T?) -> Void, failure: @escaping (String?) -> Void){
         guard let url = URL(string: APIURL+apiroute) else {fatalError("Missing URL")}
         var urlRequest = URLRequest(url: url)
+
+        //  Retrieve the session ID from UserDefaults
+        let sessionID = UserDefaults.standard.string(forKey: "cookie")
+        if let sessionID = sessionID {
+            urlRequest.setValue(sessionID, forHTTPHeaderField: "Cookie")
+            print("POST BEF REQUEST: \(sessionID)")
+        }
 
         urlRequest.httpMethod = httpmethod.rawValue
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -161,14 +185,21 @@ class WPapi: ObservableObject{
                 failure("Error: Cannot retrieve data")
                 return
             }
-            
+
             if [200,201].contains(response.statusCode) {
+                //  Extract the session ID from the response headers and store it in UserDefaults
+                if let setCookieHeader = response.allHeaderFields["Set-Cookie"] as? String {
+                    UserDefaults.standard.set(setCookieHeader, forKey: "cookie")
+                    print("POST AFT REQUEST: \(setCookieHeader)")
+                }
+
                 DispatchQueue.main.async {
                     do {
-                        let decodedObject = try JSONDecoder().decode(T.self, from: data)
+                        let decodedWrapper = try JSONDecoder().decode(APIResponseWrapper<T>.self, from: data)
+                        let decodedObject = decodedWrapper.content
                         success(decodedObject)
                     } catch let error {
-                        failure("Error decoding: " + error.localizedDescription)
+                        failure("Error decoding: (probably wrong format) " + error.localizedDescription)
                     }
                 }
             } else {
@@ -188,6 +219,8 @@ class WPapi: ObservableObject{
         }
         dataTask.resume()
     }
+
+
     
     
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @EnvironmentObject var network: WPapi
+    @EnvironmentObject var wpvm: WPViewModel
     @Binding var registerSwitch: Bool
     @State private var username: String = ""
     @State private var firstname: String = ""
@@ -54,7 +54,7 @@ struct RegisterView: View {
                         print("Passwords do not match.")
                         return
                     }
-                    network.registerUser(iUsername: username, iEmail: email, iFirstname: firstname, iLastname: lastname, iPassword: password)
+                    wpvm.registerUser(iUsername: username, iEmail: email, iFirstname: firstname, iLastname: lastname, iPassword: password)
                 }
                 
                 WPButton(label: "LogIn"){
@@ -74,6 +74,7 @@ struct RegisterViewTest: View {
     @State var registerSwitch: Bool = true
     var body: some View {
         RegisterView(registerSwitch: $registerSwitch)
+            .environmentObject(WPViewModel())
     }
 }
 

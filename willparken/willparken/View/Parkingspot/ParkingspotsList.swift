@@ -8,51 +8,52 @@
 import SwiftUI
 
 struct ParkingspotsList: View {
-    @EnvironmentObject var network: WPapi
-    @State private var parkingspotDataTemplateOpen = false
-    @State private var selectedParkingspot = Parkingspot(_id: "0", p_number: 0)
+    @EnvironmentObject var wpvm: WPViewModel
+    @State private var parkingspotCreateOpen = false
+    @State private var selectedParkingspot: Parkingspot?
     
     var body: some View {
-        
         List {
-            ForEach(network.testParkingspots!, id: \.id) { iParkingspot in
-                ParkingspotCard(parkingspot: iParkingspot)
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                        Button(action: {
-                            if let index = network.testParkingspots!.firstIndex(of: iParkingspot) {
-                                network.testParkingspots!.remove(at: index)
+            if let parkingspots = wpvm.currentParkingspots{
+                ForEach(parkingspots) { iParkingspot in
+                    
+                    ParkingspotCard(parkingspot: iParkingspot)
+                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                            Button {
+                                selectedParkingspot = iParkingspot
+                            } label: {
+                                Label("Edit", systemImage: "pencil")
                             }
-                        }, label: {
-                            Label("Delete", systemImage: "trash")
-                        })
-                        .tint(.red)
-                    }
-                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                        Button {
-                            selectedParkingspot = iParkingspot
-                            parkingspotDataTemplateOpen = true
-                        } label: {
-                            Label("Edit", systemImage: "pencil")
+                            .tint(.blue)
                         }
-                        .tint(.blue)
-                    }
+                }
+                .onDelete(perform: { indexSet in
+                    wpvm.currentParkingspots!.remove(atOffsets: indexSet)
+                })
+                .listRowSeparator(Visibility.hidden)
             }
-            .listRowSeparator(Visibility.hidden)
             
             Rectangle()
                 .foregroundColor(Color(.black).opacity(0))
                 .frame(height: 50)
                 .listRowSeparator(Visibility.hidden)
         }
+        .refreshable {
+            wpvm.loadParkingspotsFromUser()
+        }
         .listStyle(PlainListStyle())
         .scrollIndicators(ScrollIndicatorVisibility.hidden)
-        .sheet(isPresented: $parkingspotDataTemplateOpen) {
-            ParkingspotEdit(parkingspot: $selectedParkingspot)
+        .sheet(item: $selectedParkingspot) { parkingspot in
+            ParkingspotEdit(parkingspot: parkingspot)
+                .environmentObject(wpvm)
+        }
+        .sheet(isPresented: $parkingspotCreateOpen){
+            ParkingspotEdit(parkingspot: nil)
+                .environmentObject(wpvm)
         }
         .toolbar {
             Button {
-                selectedParkingspot = Parkingspot(_id: "0", p_number: 0)
-                parkingspotDataTemplateOpen = true
+                parkingspotCreateOpen = true
             } label: {
                 Image(systemName: "plus.circle")
             }
@@ -63,7 +64,7 @@ struct ParkingspotsList: View {
 struct ParkingspotsList_Previews: PreviewProvider {
     static var previews: some View {
         ParkingspotsList()
-            .environmentObject(WPapi())
+            .environmentObject(WPViewModel())
 //        GeometryReader{ proxy in
 //            let bottomSpace = proxy.safeAreaInsets.bottom
 //            TabBarSkeleton(bottomSpace: bottomSpace == 0 ? 12 : bottomSpace)
