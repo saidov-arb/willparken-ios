@@ -38,7 +38,11 @@ struct LoginView: View {
                         print("One or more fields are empty.")
                         return
                     }
-                    wpvm.loginUser(iUsername: username, iPassword: password)
+                    wpvm.loginUser(iUsername: username, iPassword: password) { msg in
+                        if let msg = msg {
+                            print(msg)
+                        }
+                    }
                 }
                 
                 WPButton(backgroundColor: .white, foregroundColor: .blue, label: "Register") {

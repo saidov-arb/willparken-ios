@@ -34,15 +34,15 @@ class Parkingspot: Identifiable, Codable, Equatable {
         case pa_address
     }
     
-    init(_id: String, p_owner: String, p_number: String, p_priceperhour: Int, p_tags: [String], p_deleteflag: Bool, pt_availability: Timeframe, pr_reservations: [Reservation], pa_address: Address) {
-        self._id = _id
+    init(p_owner: String, p_number: String, p_priceperhour: Int, p_tags: [String], pt_availability: Timeframe, pa_address: Address) {
+        self._id = ""
         self.p_owner = p_owner
         self.p_number = p_number
         self.p_priceperhour = p_priceperhour
         self.p_tags = p_tags
-        self.p_deleteflag = p_deleteflag
+        self.p_deleteflag = false
         self.pt_availability = pt_availability
-        self.pr_reservations = pr_reservations
+        self.pr_reservations = []
         self.pa_address = pa_address
     }
 }

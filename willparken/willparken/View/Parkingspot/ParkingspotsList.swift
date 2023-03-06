@@ -28,7 +28,13 @@ struct ParkingspotsList: View {
                         }
                 }
                 .onDelete(perform: { indexSet in
-                    wpvm.currentParkingspots!.remove(atOffsets: indexSet)
+                    for index in indexSet {
+                        wpvm.deleteParkingspot(parkingspotid: parkingspots[index]._id) { msg in
+                            if let msg = msg {
+                                print(msg)
+                            }
+                        }
+                    }
                 })
                 .listRowSeparator(Visibility.hidden)
             }

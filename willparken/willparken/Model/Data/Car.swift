@@ -25,6 +25,14 @@ class Car: Identifiable, Codable, Equatable {
         case c_licenceplate
         case c_isreserved
     }
+    
+    init(c_brand: String, c_model: String, c_licenceplate: String) {
+        self._id = ""
+        self.c_brand = c_brand
+        self.c_model = c_model
+        self.c_licenceplate = c_licenceplate
+        self.c_isreserved = false
+    }
 }
 
 extension Car {
@@ -39,5 +47,19 @@ extension Car {
             }
         }
         return car
+    }
+}
+
+extension Car {
+    public func issameas(newCar: Car) -> Bool {
+        var issame = true
+        
+        if self.c_brand != newCar.c_brand ||
+            self.c_model != newCar.c_model ||
+            self.c_licenceplate != newCar.c_licenceplate {
+            issame = false
+        }
+        
+        return issame
     }
 }

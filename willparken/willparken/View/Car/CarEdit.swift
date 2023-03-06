@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CarEdit: View {
-    @EnvironmentObject var wpapi: WPapi
+    @EnvironmentObject var wpvm: WPViewModel
     @Environment(\.dismiss) var dismiss
     var car: Car?
     
@@ -81,7 +81,31 @@ struct CarEdit: View {
     
     private func save(){
         print("Save klicked.")
+        saveCar()
         dismiss()
+    }
+    
+    private func saveCar(){
+        let newCar = Car(c_brand: brand, c_model: model, c_licenceplate: licenceplate)
+        
+        if let currentCar = car {
+            if !currentCar.issameas(newCar: newCar) {
+                newCar._id = currentCar._id
+                wpvm.updateCar(car: newCar) { msg in
+                    if let msg = msg {
+                        print(msg)
+                    }
+                }
+            } else {
+                print("Nothing changed.")
+            }
+        }else{
+            wpvm.addCar(car: newCar) { msg in
+                if let msg = msg {
+                    print(msg)
+                }
+            }
+        }
     }
 }
 
@@ -89,7 +113,7 @@ struct CarEditTest: View{
     @State var car = Car.makeSampleCar()!
     var body: some View{
         CarEdit(car: car)
-            .environmentObject(WPapi())
+            .environmentObject(WPViewModel())
     }
 }
 

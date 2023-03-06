@@ -8,28 +8,36 @@
 import SwiftUI
 
 struct CarList: View {
-    @EnvironmentObject var wpapi: WPapi
+    @EnvironmentObject var wpvm: WPViewModel
     @State private var carCreateOpen = false
     @State private var selectedCar: Car?
     
     var body: some View {
         List {
-            ForEach(wpapi.currentUser!.uc_cars, id: \.id) { iCar in
-                
-                CarCard(car: iCar)
-                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                        Button {
-                            selectedCar = iCar
-                        } label: {
-                            Label("Edit", systemImage: "pencil")
+            if let cars = wpvm.currentUser?.uc_cars{
+                ForEach(cars) { iCar in
+                    
+                    CarCard(car: iCar)
+                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                            Button {
+                                selectedCar = iCar
+                            } label: {
+                                Label("Edit", systemImage: "pencil")
+                            }
+                            .tint(.blue)
                         }
-                        .tint(.blue)
+                }
+                .onDelete(perform: { indexSet in
+                    for index in indexSet {
+                        wpvm.deleteCar(carid: cars[index]._id) { msg in
+                            if let msg = msg {
+                                print(msg)
+                            }
+                        }
                     }
+                })
+                .listRowSeparator(Visibility.hidden)
             }
-            .onDelete(perform: { indexSet in
-                wpapi.currentUser!.uc_cars.remove(atOffsets: indexSet)
-            })
-            .listRowSeparator(Visibility.hidden)
             
             Rectangle()
                 .foregroundColor(Color(.black).opacity(0))
@@ -40,11 +48,11 @@ struct CarList: View {
         .scrollIndicators(ScrollIndicatorVisibility.hidden)
         .sheet(item: $selectedCar) { car in
             CarEdit(car: car)
-                .environmentObject(wpapi)
+                .environmentObject(wpvm)
         }
         .sheet(isPresented: $carCreateOpen) {
             CarEdit(car: nil)
-                .environmentObject(wpapi)
+                .environmentObject(wpvm)
         }
         .toolbar {
             Button {
@@ -59,6 +67,6 @@ struct CarList: View {
 struct CarList_Previews: PreviewProvider {
     static var previews: some View {
         CarList()
-            .environmentObject(WPapi())
+            .environmentObject(WPViewModel())
     }
 }

@@ -33,7 +33,11 @@ struct MainView: View {
             }
         }
         .onAppear{
-            wpvm.getUser()
+            wpvm.getUser() { msg in
+                if let msg = msg {
+                    print(msg)
+                }
+            }
         }
     }
 }

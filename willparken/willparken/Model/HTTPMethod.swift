@@ -11,5 +11,6 @@ enum HTTPMethod: String{
     case GET    =   "GET"
     case POST   =   "POST"
     case DELETE =   "DELETE"
-    case UPDATE =   "UPDATE"
+    case PATCH  =   "PATCH"
+//    case UPDATE =   "UPDATE"
 }

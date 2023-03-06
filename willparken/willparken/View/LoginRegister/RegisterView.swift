@@ -54,7 +54,11 @@ struct RegisterView: View {
                         print("Passwords do not match.")
                         return
                     }
-                    wpvm.registerUser(iUsername: username, iEmail: email, iFirstname: firstname, iLastname: lastname, iPassword: password)
+                    wpvm.registerUser(iUsername: username, iEmail: email, iFirstname: firstname, iLastname: lastname, iPassword: password) { msg in
+                        if let msg = msg {
+                            print(msg)
+                        }
+                    }
                 }
                 
                 WPButton(label: "LogIn"){

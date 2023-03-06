@@ -15,19 +15,19 @@ struct ParkingspotEdit: View {
     var parkingspot: Parkingspot?
     
     @State private var empty = ""
-    @State private var no = ""
-    @State private var priceperhour = ""
-    @State private var tags = [""]
-    @State private var weekdays = [false,false,false,false,false,false,false]
+    @State private var no = "22"
+    @State private var priceperhour = "1"
+    @State private var tags = ["Dach"]
+    @State private var weekdays = [true,true,true,true,true,false,false]
     @State private var dayfrom = Date()
     @State private var dayuntil = Date()
     @State private var timefrom = Date()
     @State private var timeuntil = Date()
-    @State private var country = ""
-    @State private var city = ""
-    @State private var zip = ""
-    @State private var street = ""
-    @State private var houseno = ""
+    @State private var country = "Austria"
+    @State private var city = "Wels"
+    @State private var zip = "4600"
+    @State private var street = "Kamerlweg"
+    @State private var houseno = "21a"
     
     init(parkingspot: Parkingspot? = nil){
         if let iParkingspot = parkingspot {
@@ -205,18 +205,23 @@ struct ParkingspotEdit: View {
         }
         let newAvailability = Timeframe(t_weekday: newWeekdays, t_dayfrom: dayDateToInt(dayAsDate: dayfrom), t_dayuntil: dayDateToInt(dayAsDate: dayuntil), t_timefrom: timeDateToInt(timeAsDate: timefrom), t_timeuntil: timeDateToInt(timeAsDate: timeuntil))
         let newAddress = Address(a_country: country, a_city: city, a_zip: zip, a_street: street, a_houseno: houseno, a_longitude: mapAPI.locations.first!.coordinate.longitude, a_latitude: mapAPI.locations.first!.coordinate.latitude)
-        let newParkingspot = Parkingspot(_id: UUID().uuidString, p_owner: userid, p_number: no, p_priceperhour: Int(priceperhour)!, p_tags: tags, p_deleteflag: false, pt_availability: newAvailability, pr_reservations: [], pa_address: newAddress)
+        let newParkingspot = Parkingspot(p_owner: userid, p_number: no, p_priceperhour: Int(priceperhour)!, p_tags: tags, pt_availability: newAvailability, pa_address: newAddress)
         if let currentParkingspot = parkingspot {
             if !currentParkingspot.issameas(newParkingspot: newParkingspot){
-                if wpvm.updateParkingspot(parkingspotid: currentParkingspot._id, parkingspot: newParkingspot) {
-                    print("Updated currentParkingspot.")
+                newParkingspot._id = currentParkingspot._id
+                wpvm.updateParkingspot(parkingspot: newParkingspot) { msg in
+                    if let msg = msg {
+                        print(msg)
+                    }
                 }
             }else{
                 print("Nothing changed.")
             }
         }else{
-            if wpvm.addParkingspot(parkingspot: newParkingspot) {
-                print("Added newParkingspot.")
+            wpvm.addParkingspot(parkingspot: newParkingspot) { msg in
+                if let msg = msg {
+                   print(msg)
+                }
             }
         }
     }
