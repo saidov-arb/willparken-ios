@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @EnvironmentObject var network: WPapi
+    @EnvironmentObject var wpvm: WPViewModel
     
     var body: some View {
         VStack {
-            Text("This is the ProfileView")
+            Button {
+                wpvm.logoutUser()
+                wpvm.currentUser = nil
+                wpvm.currentParkingspots = nil
+                wpvm.searchedParkingspots = nil
+            } label: {
+                Text("LogOut.")
+            }
         }
     }
 }
@@ -20,6 +27,6 @@ struct ProfileView: View {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
-            .environmentObject(WPapi())
+            .environmentObject(WPViewModel())
     }
 }

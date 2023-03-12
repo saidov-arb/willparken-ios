@@ -24,6 +24,8 @@
 		B32482E929B369870072B36D /* SampleReservation.json in Resources */ = {isa = PBXBuildFile; fileRef = B32482E829B368E90072B36D /* SampleReservation.json */; };
 		B32482EB29B36E190072B36D /* SampleParkingspotArray.json in Resources */ = {isa = PBXBuildFile; fileRef = B32482EA29B36C970072B36D /* SampleParkingspotArray.json */; };
 		B33985D029AC019100EF1AB2 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33985CF29AC019100EF1AB2 /* Reservation.swift */; };
+		B341B9B529B789310075FE75 /* ReservationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B341B9B429B789310075FE75 /* ReservationList.swift */; };
+		B341B9B829B789C20075FE75 /* ReservationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B341B9B729B789C20075FE75 /* ReservationCard.swift */; };
 		B3486A5929AE786900C4B5A9 /* CarCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3486A5829AE786900C4B5A9 /* CarCard.swift */; };
 		B3486A5B29AE787300C4B5A9 /* CarList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3486A5A29AE787300C4B5A9 /* CarList.swift */; };
 		B3486A5D29AE787F00C4B5A9 /* CarEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3486A5C29AE787F00C4B5A9 /* CarEdit.swift */; };
@@ -36,7 +38,9 @@
 		B362F4F829991416004791D4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B362F4F729991416004791D4 /* ProfileView.swift */; };
 		B3726800298688E500E50D1A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37267FF298688E500E50D1A /* LoginView.swift */; };
 		B37268022986905C00E50D1A /* WPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37268012986905C00E50D1A /* WPButton.swift */; };
-		B3793A9329A3BDAE00B99EA9 /* ParkingspotsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3793A9229A3BDAE00B99EA9 /* ParkingspotsList.swift */; };
+		B377838229BC8C55004F9E25 /* WPDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377838129BC8C55004F9E25 /* WPDropdownMenu.swift */; };
+		B377838429BCD4D7004F9E25 /* SearchFilterEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377838329BCD4D7004F9E25 /* SearchFilterEdit.swift */; };
+		B3793A9329A3BDAE00B99EA9 /* ParkingspotList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3793A9229A3BDAE00B99EA9 /* ParkingspotList.swift */; };
 		B3793A9529A3C27F00B99EA9 /* ParkingspotCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3793A9429A3C27F00B99EA9 /* ParkingspotCard.swift */; };
 		B3833EF6299AC48C000F9DFD /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3833EF5299AC48C000F9DFD /* DashboardCard.swift */; };
 		B39CE11D2996CA6200B257E9 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39CE11C2996CA6200B257E9 /* TabBar.swift */; };
@@ -47,6 +51,8 @@
 		B3D1678029A65D23006BEE54 /* Timeframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D1677F29A65D23006BEE54 /* Timeframe.swift */; };
 		B3D6D0CD2975801800B28336 /* WPTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6D0CC2975801800B28336 /* WPTitle.swift */; };
 		B3D873DF29ABEE6E00F63307 /* WPTagContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D873DE29ABEE6E00F63307 /* WPTagContainer.swift */; };
+		B3E8EE4129B6774F00452513 /* WPStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E8EE4029B6774F00452513 /* WPStepper.swift */; };
+		B3E8EE4329B6825F00452513 /* WPStatusToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E8EE4229B6825F00452513 /* WPStatusToggle.swift */; };
 		B3F49B5329B4F50F002AE528 /* WPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F49B5229B4F50F002AE528 /* WPViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +76,8 @@
 		B32482E829B368E90072B36D /* SampleReservation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SampleReservation.json; sourceTree = "<group>"; };
 		B32482EA29B36C970072B36D /* SampleParkingspotArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SampleParkingspotArray.json; sourceTree = "<group>"; };
 		B33985CF29AC019100EF1AB2 /* Reservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
+		B341B9B429B789310075FE75 /* ReservationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationList.swift; sourceTree = "<group>"; };
+		B341B9B729B789C20075FE75 /* ReservationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationCard.swift; sourceTree = "<group>"; };
 		B3486A5829AE786900C4B5A9 /* CarCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCard.swift; sourceTree = "<group>"; };
 		B3486A5A29AE787300C4B5A9 /* CarList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarList.swift; sourceTree = "<group>"; };
 		B3486A5C29AE787F00C4B5A9 /* CarEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarEdit.swift; sourceTree = "<group>"; };
@@ -82,7 +90,9 @@
 		B362F4F729991416004791D4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B37267FF298688E500E50D1A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B37268012986905C00E50D1A /* WPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPButton.swift; sourceTree = "<group>"; };
-		B3793A9229A3BDAE00B99EA9 /* ParkingspotsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingspotsList.swift; sourceTree = "<group>"; };
+		B377838129BC8C55004F9E25 /* WPDropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPDropdownMenu.swift; sourceTree = "<group>"; };
+		B377838329BCD4D7004F9E25 /* SearchFilterEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterEdit.swift; sourceTree = "<group>"; };
+		B3793A9229A3BDAE00B99EA9 /* ParkingspotList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingspotList.swift; sourceTree = "<group>"; };
 		B3793A9429A3C27F00B99EA9 /* ParkingspotCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingspotCard.swift; sourceTree = "<group>"; };
 		B3833EF5299AC48C000F9DFD /* DashboardCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCard.swift; sourceTree = "<group>"; };
 		B39CE11C2996CA6200B257E9 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
@@ -94,6 +104,8 @@
 		B3D1677F29A65D23006BEE54 /* Timeframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeframe.swift; sourceTree = "<group>"; };
 		B3D6D0CC2975801800B28336 /* WPTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPTitle.swift; sourceTree = "<group>"; };
 		B3D873DE29ABEE6E00F63307 /* WPTagContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPTagContainer.swift; sourceTree = "<group>"; };
+		B3E8EE4029B6774F00452513 /* WPStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPStepper.swift; sourceTree = "<group>"; };
+		B3E8EE4229B6825F00452513 /* WPStatusToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPStatusToggle.swift; sourceTree = "<group>"; };
 		B3F49B5229B4F50F002AE528 /* WPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -162,6 +174,7 @@
 				B39CE11E2996CAE900B257E9 /* TabBar */,
 				B351A3E529A10907006AD055 /* Parkingspot */,
 				B3486A5729AE77E700C4B5A9 /* Car */,
+				B341B9B629B789540075FE75 /* Reservation */,
 				B362F4F4299913CB004791D4 /* Profile */,
 				B39CE11A2996C2F000B257E9 /* Dashboard */,
 				B362F4F3299913AD004791D4 /* Search */,
@@ -197,6 +210,15 @@
 			path = SampleData;
 			sourceTree = "<group>";
 		};
+		B341B9B629B789540075FE75 /* Reservation */ = {
+			isa = PBXGroup;
+			children = (
+				B341B9B429B789310075FE75 /* ReservationList.swift */,
+				B341B9B729B789C20075FE75 /* ReservationCard.swift */,
+			);
+			path = Reservation;
+			sourceTree = "<group>";
+		};
 		B3486A5729AE77E700C4B5A9 /* Car */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,7 +232,7 @@
 		B351A3E529A10907006AD055 /* Parkingspot */ = {
 			isa = PBXGroup;
 			children = (
-				B3793A9229A3BDAE00B99EA9 /* ParkingspotsList.swift */,
+				B3793A9229A3BDAE00B99EA9 /* ParkingspotList.swift */,
 				B3793A9429A3C27F00B99EA9 /* ParkingspotCard.swift */,
 				B3538C4529A816940083CF5B /* ParkingspotEdit.swift */,
 			);
@@ -221,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				B362F4F5299913F6004791D4 /* SearchView.swift */,
+				B377838329BCD4D7004F9E25 /* SearchFilterEdit.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -259,6 +282,9 @@
 				B30E8D61297C40FC0092FD63 /* WPTextField.swift */,
 				B3D873DE29ABEE6E00F63307 /* WPTagContainer.swift */,
 				B34FA02229AD3EA00074458B /* WPWeekdayItem.swift */,
+				B3E8EE4029B6774F00452513 /* WPStepper.swift */,
+				B3E8EE4229B6825F00452513 /* WPStatusToggle.swift */,
+				B377838129BC8C55004F9E25 /* WPDropdownMenu.swift */,
 			);
 			path = WPCommonViews;
 			sourceTree = "<group>";
@@ -363,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B341B9B829B789C20075FE75 /* ReservationCard.swift in Sources */,
 				B3486A5B29AE787300C4B5A9 /* CarList.swift in Sources */,
 				B362F4F6299913F6004791D4 /* SearchView.swift in Sources */,
 				B3CE691B29AB8AFF0086A2BF /* Mapapi.swift in Sources */,
@@ -376,6 +403,8 @@
 				B3833EF6299AC48C000F9DFD /* DashboardCard.swift in Sources */,
 				B362F4F2299912B1004791D4 /* TabBarSkeleton.swift in Sources */,
 				B3486A5929AE786900C4B5A9 /* CarCard.swift in Sources */,
+				B3E8EE4129B6774F00452513 /* WPStepper.swift in Sources */,
+				B377838229BC8C55004F9E25 /* WPDropdownMenu.swift in Sources */,
 				B3486A5D29AE787F00C4B5A9 /* CarEdit.swift in Sources */,
 				B39CE1202996CB0E00B257E9 /* TabBarButton.swift in Sources */,
 				B3538C4629A816940083CF5B /* ParkingspotEdit.swift in Sources */,
@@ -383,17 +412,20 @@
 				B30E8D65297C7DB40092FD63 /* WPapi.swift in Sources */,
 				B39CE11D2996CA6200B257E9 /* TabBar.swift in Sources */,
 				B3793A9529A3C27F00B99EA9 /* ParkingspotCard.swift in Sources */,
+				B341B9B529B789310075FE75 /* ReservationList.swift in Sources */,
 				B30E2C73296EA21100064A55 /* WillParkenApp.swift in Sources */,
-				B3793A9329A3BDAE00B99EA9 /* ParkingspotsList.swift in Sources */,
+				B3793A9329A3BDAE00B99EA9 /* ParkingspotList.swift in Sources */,
 				B39E88162983E188000A1CB5 /* Parkingspot.swift in Sources */,
 				B39E88182983E1FC000A1CB5 /* Address.swift in Sources */,
 				B30E8D60297C3AA60092FD63 /* RegisterView.swift in Sources */,
 				B30E8D67297C7E0F0092FD63 /* User.swift in Sources */,
 				B37268022986905C00E50D1A /* WPButton.swift in Sources */,
+				B377838429BCD4D7004F9E25 /* SearchFilterEdit.swift in Sources */,
 				B35BF413297C018A00407CED /* DashboardView.swift in Sources */,
 				B3D1678029A65D23006BEE54 /* Timeframe.swift in Sources */,
 				B362F4F829991416004791D4 /* ProfileView.swift in Sources */,
 				B30E8D62297C40FC0092FD63 /* WPTextField.swift in Sources */,
+				B3E8EE4329B6825F00452513 /* WPStatusToggle.swift in Sources */,
 				B3F49B5329B4F50F002AE528 /* WPViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,6 +557,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "WillParken/Preview\\ Content";
+				DEVELOPMENT_TEAM = S68BWTY3NW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WillParken/Info.plist;
@@ -553,6 +586,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "WillParken/Preview\\ Content";
+				DEVELOPMENT_TEAM = S68BWTY3NW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WillParken/Info.plist;

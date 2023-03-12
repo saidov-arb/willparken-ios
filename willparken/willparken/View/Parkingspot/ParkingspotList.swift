@@ -7,24 +7,31 @@
 
 import SwiftUI
 
-struct ParkingspotsList: View {
+struct ParkingspotList: View {
     @EnvironmentObject var wpvm: WPViewModel
     @State private var parkingspotCreateOpen = false
-    @State private var selectedParkingspot: Parkingspot?
+    @State private var selectedParkingspotToEdit: Parkingspot?
+    @State private var selectedParkingspotToViewReservations: Parkingspot?
     
     var body: some View {
         List {
             if let parkingspots = wpvm.currentParkingspots{
                 ForEach(parkingspots) { iParkingspot in
-                    
                     ParkingspotCard(parkingspot: iParkingspot)
                         .swipeActions(edge: .leading, allowsFullSwipe: true) {
                             Button {
-                                selectedParkingspot = iParkingspot
+                                selectedParkingspotToEdit = iParkingspot
                             } label: {
                                 Label("Edit", systemImage: "pencil")
                             }
                             .tint(.blue)
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button {
+                                selectedParkingspotToViewReservations = iParkingspot
+                            } label: {
+                                Label("Reservations", systemImage: "calendar.badge.clock")
+                            }
                         }
                 }
                 .onDelete(perform: { indexSet in
@@ -49,10 +56,14 @@ struct ParkingspotsList: View {
         }
         .listStyle(PlainListStyle())
         .scrollIndicators(ScrollIndicatorVisibility.hidden)
-        .sheet(item: $selectedParkingspot) { parkingspot in
+        .sheet(item: $selectedParkingspotToEdit) { parkingspot in
             ParkingspotEdit(parkingspot: parkingspot)
                 .environmentObject(wpvm)
         }
+        .sheet(item: $selectedParkingspotToViewReservations, content: { parkingspot in
+            ReservationList(parkingspot: parkingspot)
+                .environmentObject(wpvm)
+        })
         .sheet(isPresented: $parkingspotCreateOpen){
             ParkingspotEdit(parkingspot: nil)
                 .environmentObject(wpvm)
@@ -69,7 +80,7 @@ struct ParkingspotsList: View {
 
 struct ParkingspotsList_Previews: PreviewProvider {
     static var previews: some View {
-        ParkingspotsList()
+        ParkingspotList()
             .environmentObject(WPViewModel())
 //        GeometryReader{ proxy in
 //            let bottomSpace = proxy.safeAreaInsets.bottom

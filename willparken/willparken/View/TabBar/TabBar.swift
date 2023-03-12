@@ -37,7 +37,7 @@ struct TabBar_Previews: PreviewProvider {
         GeometryReader{ proxy in
             let bottomSpace = proxy.safeAreaInsets.bottom
             TabBarSkeleton(bottomSpace: bottomSpace == 0 ? 12 : bottomSpace)
-                .environmentObject(WPapi())
+                .environmentObject(WPViewModel())
                 .ignoresSafeArea(.all, edges: .bottom)
         }
     }

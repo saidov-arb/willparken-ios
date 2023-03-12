@@ -19,8 +19,8 @@ struct DashboardView: View {
                 
                 DashboardCard(title: "Your Parkingspots (\(wpvm.currentParkingspots?.count ?? 0))", destination: {
                     AnyView(
-                        ParkingspotsList()
-                            .environmentObject(wpvm.wpapi)
+                        ParkingspotList()
+                            .environmentObject(wpvm)
                     )
                 }) {
                     if let parkingspots = wpvm.currentParkingspots {
@@ -35,7 +35,7 @@ struct DashboardView: View {
                                             Image(systemName: "mappin.and.ellipse")
                                             Text("\(iParkingspot.pa_address.a_zip)")
                                             Divider().frame(height: 20).background(.blue)
-                                            Text("\(iParkingspot.pa_address.a_street)")
+                                            Text("\(iParkingspot.pa_address.a_street) \(iParkingspot.pa_address.a_houseno)")
                                             Divider().frame(height: 20).background(.blue)
                                             Text("\(iParkingspot.p_number)")
                                         }
@@ -53,7 +53,7 @@ struct DashboardView: View {
                 DashboardCard(title: "Your Cars (\(wpvm.currentUser?.uc_cars.count ?? 0))", destination: {
                     AnyView(
                         CarList()
-                            .environmentObject(wpvm.wpapi)
+                            .environmentObject(wpvm)
                     )
                 }) {
                     if let cars = wpvm.currentUser?.uc_cars {
@@ -77,6 +77,16 @@ struct DashboardView: View {
                     }else{
                         return AnyView(EmptyView())
                     }
+                }
+                
+                DashboardCard(title: "Your Reservations (\(wpvm.currentUser?.ur_reservations.count ?? 0))", destination: {
+                    AnyView(
+//                        ReservationList()
+//                            .environmentObject(wpvm)
+                        EmptyView()
+                    )
+                }) {
+                    AnyView(EmptyView())
                 }
                 
                 Rectangle()

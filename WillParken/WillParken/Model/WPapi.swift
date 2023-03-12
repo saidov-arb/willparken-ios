@@ -77,7 +77,7 @@ class WPapi: ObservableObject{
      *  Here an Encodable Object is a parameter, which will be sent to the API (OBJECT converted to JSON then sent to API),
      *  then there is a Decodable Object returned, which will is being retrieved (API sends JSON which is then converted to OBJECT).
      */
-    func postDecodableObject<T: Decodable, U: Encodable>(apiroute: String, httpmethod: HTTPMethod, objectToSend: U, success: @escaping (T?) -> Void, failure: @escaping (String?) -> Void){
+    func postDecodableObject<T: Decodable, U: Encodable>(apiroute: String, httpmethod: HTTPMethod, objectToSend: U, success: @escaping (T?) -> Void, failure: @escaping (String?) -> Void) {
         guard let url = URL(string: APIURL+apiroute) else {fatalError("Missing URL")}
         var urlRequest = URLRequest(url: url)
 
