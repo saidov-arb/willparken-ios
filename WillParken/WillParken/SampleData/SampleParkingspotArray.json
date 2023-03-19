@@ -1,6 +1,6 @@
 [
     {
-        "p_deleteflag": false,
+        "p_status": "active",
         "_id": "63fced00a97bcbdff871611e",
         "p_owner": "63f9fb87773b45f0baccfd01",
         "p_number": "2",
@@ -26,13 +26,13 @@
             "a_zip": "4600",
             "a_street": "Fischergasse",
             "a_houseno": "30",
-            "a_longitude": 40.20,
-            "a_latitude": 40.20,
+            "a_longitude": 14.0346,
+            "a_latitude": 48.1576,
             "_id": "63fced00a97bcbdff8716120"
         }
     },
     {
-        "p_deleteflag": false,
+        "p_status": "active",
         "_id": "63fced00a97bcbdff8716121",
         "p_owner": "63f9fb87773b45f0baccfd01",
         "p_number": "3",
@@ -61,13 +61,13 @@
             "a_zip": "4020",
             "a_street": "Hauptstraße",
             "a_houseno": "1",
-            "a_longitude": 40.20,
-            "a_latitude": 40.20,
+            "a_longitude": 14.0299,
+            "a_latitude": 48.1642,
             "_id": "63fced00a97bcbdff8716123"
         }
     },
     {
-        "p_deleteflag": false,
+        "p_status": "active",
         "_id": "63fced00a97bcbdff8716124",
         "p_owner": "63f9fb87773b45f0baccfd02",
         "p_number": "4",
@@ -99,13 +99,13 @@
             "a_zip": "1010",
             "a_street": "Stephansplatz",
             "a_houseno": "1",
-            "a_longitude": 40.20,
-            "a_latitude": 40.20,
+            "a_longitude": 14.0444,
+            "a_latitude": 48.1504,
             "_id": "63fced00a97bcbdff8716126"
         }
     },
     {
-        "p_deleteflag": false,
+        "p_status": "inactive",
         "_id": "63fced00a97bcbdff8716127",
         "p_owner": "63f9fb87773b45f0baccfd02",
         "p_number": "5",
@@ -135,13 +135,13 @@
             "a_zip": "8010",
             "a_street": "Jakominiplatz",
             "a_houseno": "1",
-            "a_longitude": 40.20,
-            "a_latitude": 40.20,
+            "a_longitude": 14.0236,
+            "a_latitude": 48.1597,
             "_id": "63fced00a97bcbdff8716129"
         }
     },
     {
-        "p_deleteflag": false,
+        "p_status": "deleted",
         "_id": "63fced00a97bcbdff8716130",
         "p_owner": "63f9fb87773b45f0baccfd03",
         "p_number": "6",
@@ -167,8 +167,8 @@
             "a_zip": "5020",
             "a_street": "Mozartplatz",
             "a_houseno": "1",
-            "a_longitude": 40.20,
-            "a_latitude": 40.20,
+            "a_longitude": 14.0207,
+            "a_latitude": 48.1664,
             "_id": "63fced00a97bcbdff8716132"
         }
     }

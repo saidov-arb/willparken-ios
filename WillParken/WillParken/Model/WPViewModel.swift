@@ -8,15 +8,17 @@
 import Foundation
 
 class WPViewModel: ObservableObject {
-    @Published var wpapi: WPapi = WPapi()
+    private var wpapi: WPapi = WPapi()
     
     @Published var currentUser: User?
+//    @Published var currentUser: User? = User.makeSampleUser()!
     @Published var currentParkingspots: [Parkingspot]?
-    @Published var searchedParkingspots: [Parkingspot]? = Parkingspot.makeSampleParkingspotArray()
+    @Published var currentReservations: [Reservation]?
+    @Published var searchedParkingspots: [Parkingspot]?
     
     
     //  MARK: - User -
-    func loginUser(iUsername: String, iPassword: String, success: @escaping (String?) -> Void) {
+    public func loginUser(iUsername: String, iPassword: String, success: @escaping (String?) -> Void, failure: @escaping (String?) -> Void) {
         //  At first, the data has to be organized in a struct
         struct LoginDataStruct: Encodable {
             let u_username: String
@@ -31,12 +33,12 @@ class WPViewModel: ObservableObject {
             }
         } failure: { (error: String?) in
             if let error = error {
-                print(error)
+                failure(error)
             }
         }
     }
     
-    func registerUser(iUsername: String, iEmail: String, iFirstname: String, iLastname: String, iPassword: String, success: @escaping (String?) -> Void){
+    public func registerUser(iUsername: String, iEmail: String, iFirstname: String, iLastname: String, iPassword: String, success: @escaping (String?) -> Void, failure: @escaping (String?) -> Void){
         struct RegisterDataStruct: Encodable {
             let u_username: String
             let u_email: String
@@ -51,13 +53,28 @@ class WPViewModel: ObservableObject {
                 success("Registered User.")
             }
         } failure: { (error: String?) in
-            if let error = error {
-                print(error)
+            if var error = error {
+                if error.starts(with: "400") {
+                    error = "Benutzername bereits vergeben."
+                }
+                failure(error)
             }
         }
     }
     
-    func getUser(success: @escaping (String?) -> Void){
+    public func logoutUser(){
+        wpapi.fetchDecodableObject(apiroute: "/users/logout") { (response: String?) in
+            if response != nil {
+                print("Logged Out User.")
+                self.currentUser = nil
+                self.currentParkingspots = nil
+                self.searchedParkingspots = nil
+                self.currentReservations = nil
+            }
+        }
+    }
+    
+    public func getUser(success: @escaping (String?) -> Void){
         wpapi.fetchDecodableObject(apiroute: "/users/getUser") { (response: User?) in
             if let response = response {
                 self.currentUser = response
@@ -66,17 +83,54 @@ class WPViewModel: ObservableObject {
         }
     }
     
+    public func updateUser(firstname: String, lastname: String, email: String, success: @escaping (String?) -> Void, failure: @escaping (String?) -> Void){
+        struct UpdateUserStruct: Encodable {
+            let u_firstname: String
+            let u_lastname: String
+            let u_email: String
+        }
+        let updateUserData = UpdateUserStruct(u_firstname: firstname, u_lastname: lastname, u_email: email)
+        wpapi.postDecodableObject(apiroute: "/users/update", httpmethod: HTTPMethod.PATCH, objectToSend: updateUserData) { (response: User?) in
+            if let response = response {
+                self.currentUser = response
+                success("Updated User")
+            }
+        } failure: { (error: String?) in
+            if let error = error {
+                failure(error)
+            }
+        }
+    }
+    
+    public func addUserMoney(money:Int, success: @escaping (String?) -> Void){
+        struct AddUserMoneyStruct: Encodable {
+            let money: Int
+        }
+        let addUserMoneyData = AddUserMoneyStruct(money: money)
+        wpapi.postDecodableObject(apiroute: "/users/addMoney", httpmethod: HTTPMethod.POST, objectToSend: addUserMoneyData) { (response: User?) in
+            if let response = response{
+                self.currentUser = response
+                success("Successfully added Money.")
+            }
+        } failure: { (error: String?) in
+            if let error = error {
+                print(error)
+            }
+        }
+
+    }
+    
     
     //  MARK: - Parkingspot -
-    func loadParkingspotsFromUser() {
-        wpapi.fetchDecodableObject(apiroute: "/parkingspots/getUserParkingspots") { (response: [Parkingspot]?) in
+    public func loadParkingspotsFromUser() {
+        wpapi.fetchDecodableObject(apiroute: "/parkingspots/getParkingspots") { (response: [Parkingspot]?) in
             if let response = response {
                 self.currentParkingspots = response
             }
         }
     }
     
-    func addParkingspot(parkingspot: Parkingspot, success: @escaping (String?) -> Void) {
+    public func addParkingspot(parkingspot: Parkingspot, success: @escaping (String?) -> Void, failure: @escaping (String?) -> Void) {
         struct ParkingspotAddStruct: Encodable {
             let p_tags: [String]
             let p_number: String
@@ -91,12 +145,12 @@ class WPViewModel: ObservableObject {
             }
         } failure: { (error: String?) in
             if let error = error {
-                print(error)
+                failure(error)
             }
         }
     }
     
-    func updateParkingspot(parkingspot: Parkingspot, success: @escaping (String?) -> Void) {
+    public func updateParkingspot(parkingspot: Parkingspot, success: @escaping (String?) -> Void, failure: @escaping (String?) -> Void) {
         struct ParkingspotUpdateStruct: Encodable {
             let p_id: String
             let p_tags: [String]
@@ -104,8 +158,9 @@ class WPViewModel: ObservableObject {
             let pt_availability: Timeframe
             let p_priceperhour: Int
             let pa_address: Address
+            let p_status: String
         }
-        let parkingspotUpdateData = ParkingspotUpdateStruct(p_id: parkingspot._id, p_tags: parkingspot.p_tags, p_number: parkingspot.p_number, pt_availability: parkingspot.pt_availability, p_priceperhour: parkingspot.p_priceperhour, pa_address: parkingspot.pa_address)
+        let parkingspotUpdateData = ParkingspotUpdateStruct(p_id: parkingspot._id, p_tags: parkingspot.p_tags, p_number: parkingspot.p_number, pt_availability: parkingspot.pt_availability, p_priceperhour: parkingspot.p_priceperhour, pa_address: parkingspot.pa_address, p_status: parkingspot.p_status)
         
         wpapi.postDecodableObject(apiroute: "/parkingspots/update", httpmethod: HTTPMethod.PATCH, objectToSend: parkingspotUpdateData) { (response: Parkingspot?) in
             if response != nil {
@@ -113,12 +168,12 @@ class WPViewModel: ObservableObject {
             }
         } failure: { (error: String?) in
             if let error = error {
-                print(error)
+                failure(error)
             }
         }
     }
     
-    func deleteParkingspot(parkingspotid: String, success: @escaping (String?) -> Void) {
+    public func deleteParkingspot(parkingspotid: String, success: @escaping (String?) -> Void) {
         struct ParkingspotDeleteStruct: Encodable {
             let p_id: String
         }
@@ -134,13 +189,45 @@ class WPViewModel: ObservableObject {
         }
     }
     
-    public func searchParkingspots(){
-        
+    public func searchParkingspots(address: Address, success: @escaping (String?) -> Void) {
+        struct ParkingspotSearchStruct: Encodable {
+            let pa_address: Address
+        }
+        let parkingspotSearchData = ParkingspotSearchStruct(pa_address: address)
+        wpapi.postDecodableObject(apiroute: "/parkingspots/search", httpmethod: HTTPMethod.POST, objectToSend: parkingspotSearchData) { (response: [Parkingspot]?) in
+            if let response = response {
+                self.searchedParkingspots = response
+                for ps in self.searchedParkingspots! {
+                    print(ps.pa_address.a_street)
+                }
+                success("Found Parkingspots.")
+            } else {
+                success("Found no Parkingspots.")
+            }
+        } failure: { (error: String?) in
+            if let error = error {
+                print(error)
+            }
+        }
+    }
+    
+    public func getSearchedParkingspotsMAddressArray() -> [MAddress]{
+        var maddressArray: [MAddress] = []
+        if let pss = searchedParkingspots{
+            for ips in pss {
+                let mdata = [MData(latitude: ips.pa_address.a_latitude, longitude: ips.pa_address.a_longitude, name: "Pin")]
+                let maddress = MAddress(data: mdata)
+                maddressArray.append(maddress)
+            }
+        } else {
+            print("No Parkingspots in searchedParkingspots array.")
+        }
+        return maddressArray
     }
     
     
     //  MARK: - Car -
-    func loadCarsFromUser() {
+    public func loadCarsFromUser() {
         wpapi.fetchDecodableObject(apiroute: "/users/getCars") { (response: [Car]?) in
             if let response = response {
                 self.currentUser?.uc_cars = response
@@ -206,6 +293,59 @@ class WPViewModel: ObservableObject {
         } failure: { (error: String?) in
             if let error = error {
                 print(error)
+            }
+        }
+    }
+    
+    
+    //  MARK: - Reservation -
+    public func makeReservation(parkingspotid: String, carid: String, timeframe: Timeframe, success: @escaping (String?) -> Void, failure: @escaping (String?) -> Void){
+        struct ReservationMakeSubStruct: Encodable {
+            let rc_car: String
+            let rt_timeframe: Timeframe
+        }
+        struct ReservationMakeStruct: Encodable {
+            let p_id: String
+            let pr_reservation: ReservationMakeSubStruct
+        }
+        let reservationMakeData = ReservationMakeStruct(p_id: parkingspotid, pr_reservation: ReservationMakeSubStruct(rc_car: carid, rt_timeframe: timeframe))
+        wpapi.postDecodableObject(apiroute: "/parkingspots/makeReservation", httpmethod: HTTPMethod.POST, objectToSend: reservationMakeData) { (response: String?) in
+            if response != nil {
+                success("Reservation added.")
+            }
+        } failure: { (error: String?) in
+            if let error = error {
+                failure(error)
+            }
+        }
+
+    }
+    
+    public func cancelReservation(parkingspotid: String, reservationid: String, success: @escaping (String?) -> Void, failure: @escaping (String?) -> Void){
+        struct ReservationDeleteSubStruct: Encodable {
+            let r_id: String
+        }
+        struct ReservationDeleteStruct: Encodable {
+            let p_id: String
+            let pr_reservation: ReservationDeleteSubStruct
+        }
+        print("pid: \(parkingspotid) - rid: \(reservationid)")
+        let reservationDeleteData = ReservationDeleteStruct(p_id: parkingspotid, pr_reservation: ReservationDeleteSubStruct(r_id: reservationid))
+        wpapi.postDecodableObject(apiroute: "/parkingspots/cancelReservation", httpmethod: HTTPMethod.PATCH, objectToSend: reservationDeleteData) { (response: String?) in
+            if let response = response {
+                success(response)
+            }
+        } failure: { (error: String?) in
+            if let error = error {
+                failure(error)
+            }
+        }
+    }
+    
+    public func loadReservationsFromUser(){
+        wpapi.fetchDecodableObject(apiroute: "/parkingspots/getReservations") { (response: [Reservation]?) in
+            if let response = response {
+                self.currentReservations = response
             }
         }
     }

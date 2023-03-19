@@ -10,6 +10,7 @@ import SwiftUI
 struct RegisterView: View {
     @EnvironmentObject var wpvm: WPViewModel
     @Binding var registerSwitch: Bool
+    
     @State private var username: String = ""
     @State private var firstname: String = ""
     @State private var lastname: String = ""
@@ -17,58 +18,102 @@ struct RegisterView: View {
     @State private var password: String = ""
     @State private var passwordConfirm: String = ""
     
+    @State private var isLoading: Bool = false
+    @State private var isError: Bool = false
+    @State private var errorMsg: String = ""
+    
     var body: some View {
         VStack {
-//            Text("Ich WillParken!")
-//                .font(.largeTitle)
-//                .frame(maxWidth: .infinity, alignment: .center)
             WPTitle(title: "WillParken", description: "Bleib stabil.")
             
             Spacer()
             
-            Text("Register")
-                .font(.title)
-                .frame(maxWidth: .infinity,alignment: .leading)
-            
-            WPTextField(placeholder: "Username", text: $username)
-                .padding(.top,20)
-            HStack (spacing: 10) {
-                WPTextField(placeholder: "Firstname", text: $firstname)
-                WPTextField(placeholder: "Lastname", text: $lastname)
-            }
-            .padding(.top,10)
-            WPTextField(placeholder: "Email", text: $email)
-                .padding(.top,10)
-            WPTextField(placeholder: "Password", text: $password, isPassword: true)
-                .padding(.top,10)
-            WPTextField(placeholder: "Confirm Password", text: $passwordConfirm, isPassword: true)
-                .padding(.top,10)
-            
-            HStack{
-                WPButton(backgroundColor: .blue,foregroundColor: .white,label: "Register"){
-                    guard !username.isEmpty, !firstname.isEmpty, !lastname.isEmpty, !email.isEmpty, !password.isEmpty, !passwordConfirm.isEmpty else {
-                        print("One or more fields are empty.")
-                        return
-                    }
-                    guard password == passwordConfirm else {
-                        print("Passwords do not match.")
-                        return
-                    }
-                    wpvm.registerUser(iUsername: username, iEmail: email, iFirstname: firstname, iLastname: lastname, iPassword: password) { msg in
-                        if let msg = msg {
-                            print(msg)
+            ScrollView{
+                Group{
+                    HStack{
+                        Text("Registrieren")
+                            .font(.title)
+                            .frame(maxWidth: .infinity,alignment: .leading)
+                        if(isLoading){
+                            ProgressView()
                         }
                     }
+                    
+                    
+                    WPTagContainer(tag: "Benutzername") {AnyView(
+                        WPTextField(placeholder: "Benutzername", text: $username)
+                    )}
+                    .padding(.top,10)
+                    HStack (spacing: 10) {
+                        WPTagContainer(tag: "Vorname") {AnyView(
+                            WPTextField(placeholder: "Vorname", text: $firstname)
+                        )}
+                        WPTagContainer(tag: "Nachname") {AnyView(
+                            WPTextField(placeholder: "Nachname", text: $lastname)
+                        )}
+                    }
+                    .padding(.top,10)
+                    WPTagContainer(tag: "Email") {AnyView(
+                        WPTextField(placeholder: "Email", text: $email)
+                    )}
+                    .padding(.top,10)
+                    WPTagContainer(tag: "Passwort") {AnyView(
+                        WPTextField(placeholder: "Passwort", text: $password, isPassword: true)
+                    )}
+                    .padding(.top,10)
+                    WPTagContainer(tag: "Passwort bestätigen") {AnyView(
+                        WPTextField(placeholder: "Passwort bestätigen", text: $passwordConfirm, isPassword: true)
+                    )}
+                    .padding(.top,10)
+                    
+                    HStack{
+                        WPButton(backgroundColor: .blue,foregroundColor: .white,label: "Registrieren"){
+                            guard !username.isEmpty, !firstname.isEmpty, !lastname.isEmpty, !email.isEmpty, !password.isEmpty, !passwordConfirm.isEmpty else {
+                                errorMsg = "Bitte alle Felder ausfüllen."
+                                isError = true
+                                return
+                            }
+                            guard password == passwordConfirm else {
+                                errorMsg = "Passwörter stimmen nicht überein."
+                                isError = true
+                                return
+                            }
+                            wpvm.registerUser(iUsername: username, iEmail: email, iFirstname: firstname, iLastname: lastname, iPassword: password) { msg in
+                                if let msg = msg {
+                                    print(msg)
+                                }
+                            } failure: { err in
+                                if let err = err {
+                                    errorMsg = err
+                                    isError = true
+                                }
+                            }
+                        }
+                        .alert(isPresented: $isError) {
+                            Alert(title: Text("Oh nein!"), message: Text(errorMsg), dismissButton: .default(Text("OK")))
+                        }
+                        
+                        WPButton(label: "Einloggen"){
+                            registerSwitch.toggle()
+                        }
+                    } // HStack
+                    .padding(.top,20)
                 }
+                .padding(.horizontal,2)
                 
-                WPButton(label: "LogIn"){
-                    registerSwitch.toggle()
-                }
-            }
-            .padding(.top,35)
+                
+                Spacer()
+                
+            } // ScrollView
+            .scrollIndicators(.hidden)
+            .frame(height: UIScreen.main.bounds.height * 0.7)
+            
             
             Spacer()
-        }
+            
+        } // VStack
+        .disabled(isLoading)
+        .opacity(isLoading ? 0.5 : 1)
         .padding(.horizontal, 25)
         .padding(.vertical)
     }

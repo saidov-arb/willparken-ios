@@ -17,7 +17,7 @@ class Parkingspot: Identifiable, Codable, Equatable {
     var p_number: String
     var p_priceperhour: Int
     var p_tags: [String]
-    var p_deleteflag: Bool
+    var p_status: String
     var pt_availability: Timeframe
     var pr_reservations: [Reservation]
     var pa_address: Address
@@ -28,19 +28,19 @@ class Parkingspot: Identifiable, Codable, Equatable {
         case p_number
         case p_priceperhour
         case p_tags
-        case p_deleteflag
+        case p_status
         case pt_availability
         case pr_reservations
         case pa_address
     }
     
-    init(p_owner: String, p_number: String, p_priceperhour: Int, p_tags: [String], pt_availability: Timeframe, pa_address: Address) {
+    init(p_owner: String, p_number: String, p_priceperhour: Int, p_status: String, p_tags: [String], pt_availability: Timeframe, pa_address: Address) {
         self._id = ""
         self.p_owner = p_owner
         self.p_number = p_number
         self.p_priceperhour = p_priceperhour
         self.p_tags = p_tags
-        self.p_deleteflag = false
+        self.p_status = p_status
         self.pt_availability = pt_availability
         self.pr_reservations = []
         self.pa_address = pa_address
@@ -81,7 +81,7 @@ extension Parkingspot {
     public func issameas(newParkingspot: Parkingspot) -> Bool {
         var issame = true
         
-        if self.p_number != newParkingspot.p_number || self.p_priceperhour != newParkingspot.p_priceperhour || self.p_tags != newParkingspot.p_tags || self.pt_availability != newParkingspot.pt_availability || self.pa_address != newParkingspot.pa_address{
+        if self.p_number != newParkingspot.p_number || self.p_priceperhour != newParkingspot.p_priceperhour || self.p_status != newParkingspot.p_status || self.p_tags != newParkingspot.p_tags || self.pt_availability != newParkingspot.pt_availability || self.pa_address != newParkingspot.pa_address{
             issame = false
         }
         

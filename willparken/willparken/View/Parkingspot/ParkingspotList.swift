@@ -7,28 +7,44 @@
 
 import SwiftUI
 
-struct ParkingspotsList: View {
+struct ParkingspotList: View {
     @EnvironmentObject var wpvm: WPViewModel
     @State private var parkingspotCreateOpen = false
-    @State private var selectedParkingspot: Parkingspot?
+    @State private var selectedParkingspotToEdit: Parkingspot?
+    @State private var selectedParkingspotToViewReservations: Parkingspot?
+    
+    @State private var isLoading: Bool = false
+    @State private var isError: Bool = false
+    @State private var errorMsg: String = ""
     
     var body: some View {
         List {
             if let parkingspots = wpvm.currentParkingspots{
                 ForEach(parkingspots) { iParkingspot in
-                    
                     ParkingspotCard(parkingspot: iParkingspot)
                         .swipeActions(edge: .leading, allowsFullSwipe: true) {
                             Button {
-                                selectedParkingspot = iParkingspot
+                                selectedParkingspotToEdit = iParkingspot
                             } label: {
-                                Label("Edit", systemImage: "pencil")
+                                Image(systemName: "pencil")
                             }
                             .tint(.blue)
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button {
+                                selectedParkingspotToViewReservations = iParkingspot
+                            } label: {
+                                Image(systemName: "calendar.badge.clock")
+                            }
                         }
                 }
                 .onDelete(perform: { indexSet in
                     for index in indexSet {
+                        guard parkingspots[index].p_status != "deleted" else {
+                            errorMsg = "Parkplatz wurde bereits gelöscht."
+                            isError = true
+                            return
+                        }
                         wpvm.deleteParkingspot(parkingspotid: parkingspots[index]._id) { msg in
                             if let msg = msg {
                                 print(msg)
@@ -41,7 +57,7 @@ struct ParkingspotsList: View {
             
             Rectangle()
                 .foregroundColor(Color(.black).opacity(0))
-                .frame(height: 50)
+                .frame(height: 80)
                 .listRowSeparator(Visibility.hidden)
         }
         .refreshable {
@@ -49,10 +65,14 @@ struct ParkingspotsList: View {
         }
         .listStyle(PlainListStyle())
         .scrollIndicators(ScrollIndicatorVisibility.hidden)
-        .sheet(item: $selectedParkingspot) { parkingspot in
+        .sheet(item: $selectedParkingspotToEdit) { parkingspot in
             ParkingspotEdit(parkingspot: parkingspot)
                 .environmentObject(wpvm)
         }
+        .sheet(item: $selectedParkingspotToViewReservations, content: { parkingspot in
+            ReservationParkingspotList(parkingspot: parkingspot)
+                .environmentObject(wpvm)
+        })
         .sheet(isPresented: $parkingspotCreateOpen){
             ParkingspotEdit(parkingspot: nil)
                 .environmentObject(wpvm)
@@ -64,12 +84,15 @@ struct ParkingspotsList: View {
                 Image(systemName: "plus.circle")
             }
         }
+        .alert(isPresented: $isError) {
+            Alert(title: Text("Oh nein!"), message: Text(errorMsg), dismissButton: .default(Text("OK")))
+        }
     }
 }
 
 struct ParkingspotsList_Previews: PreviewProvider {
     static var previews: some View {
-        ParkingspotsList()
+        ParkingspotList()
             .environmentObject(WPViewModel())
 //        GeometryReader{ proxy in
 //            let bottomSpace = proxy.safeAreaInsets.bottom

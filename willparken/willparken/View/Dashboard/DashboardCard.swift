@@ -10,7 +10,7 @@ import SwiftUI
 struct DashboardCard: View {
     var title: String = "Title"
     var destination: () -> AnyView
-    var container: () -> AnyView
+    var container: (() -> AnyView)?
     
     var body: some View {
         VStack (alignment: .leading){
@@ -26,18 +26,24 @@ struct DashboardCard: View {
                             Spacer()
                             Image(systemName: "chevron.right")
                         }
-                        Divider()
+                        .padding([.bottom], container == nil ? 10 : 0)
+                        if container != nil {
+                            Divider()
+                                .padding(.top,-4)
+                        }
                     }
                 }
                 .font(.title2)
                 .padding([.leading,.trailing,.top],10)
                 
-                container()
-                    .padding([.leading,.trailing,.bottom],10)
+                if let container = container {
+                    container()
+                        .padding([.leading,.trailing,.bottom],10)
+                }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.purple.opacity(0.05))
+        .background(Color.blue.opacity(0.03))
         .overlay(
             RoundedRectangle(cornerRadius: 12).stroke(.blue)
         )
@@ -52,13 +58,11 @@ struct DashboardCard_Previews: PreviewProvider {
                 AnyView(
                     Text("Destination")
                 )
-            }) {
+            }, container: {
                 AnyView(
-                    ForEach(0 ..< 3){ value in
-                        Text("\(value)")
-                    }
+                    Text("Container")
                 )
-            }
+            })
         }
     }
 }

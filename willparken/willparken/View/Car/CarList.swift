@@ -12,6 +12,10 @@ struct CarList: View {
     @State private var carCreateOpen = false
     @State private var selectedCar: Car?
     
+    @State private var isLoading: Bool = false
+    @State private var isError: Bool = false
+    @State private var errorMsg: String = ""
+    
     var body: some View {
         List {
             if let cars = wpvm.currentUser?.uc_cars{
@@ -22,13 +26,18 @@ struct CarList: View {
                             Button {
                                 selectedCar = iCar
                             } label: {
-                                Label("Edit", systemImage: "pencil")
+                                Label("Bearbeiten", systemImage: "pencil")
                             }
                             .tint(.blue)
                         }
                 }
                 .onDelete(perform: { indexSet in
                     for index in indexSet {
+                        guard !cars[index].c_isreserved else {
+                            errorMsg = "Fahrzeug wird für eine Reservierung benötigt."
+                            isError = true
+                            return
+                        }
                         wpvm.deleteCar(carid: cars[index]._id) { msg in
                             if let msg = msg {
                                 print(msg)
@@ -41,7 +50,7 @@ struct CarList: View {
             
             Rectangle()
                 .foregroundColor(Color(.black).opacity(0))
-                .frame(height: 50)
+                .frame(height: 80)
                 .listRowSeparator(Visibility.hidden)
         }
         .listStyle(PlainListStyle())
@@ -60,6 +69,9 @@ struct CarList: View {
             } label: {
                 Image(systemName: "plus.circle")
             }
+        }
+        .alert(isPresented: $isError) {
+            Alert(title: Text("Oh nein!"), message: Text(errorMsg), dismissButton: .default(Text("OK")))
         }
     }
 }

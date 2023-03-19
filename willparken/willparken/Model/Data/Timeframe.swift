@@ -33,6 +33,18 @@ class Timeframe: Identifiable, Codable, Equatable {
         self.t_timefrom = t_timefrom
         self.t_timeuntil = t_timeuntil
     }
+    
+    init(t_weekday: [Int], t_dayfrom: Date, t_dayuntil: Date, t_timefrom: Date, t_timeuntil: Date){
+        self.t_weekday = t_weekday
+        self.t_dayfrom = 0
+        self.t_dayuntil = 0
+        self.t_timefrom = 0
+        self.t_timeuntil = 0
+        self.t_dayfrom = morphDayDateToInt(dateAsDate: t_dayfrom)
+        self.t_dayuntil = morphDayDateToInt(dateAsDate: t_dayuntil)
+        self.t_timefrom = morphTimeDateToInt(timeAsDate: t_timefrom)
+        self.t_timeuntil = morphTimeDateToInt(timeAsDate: t_timeuntil)
+    }
 }
 
 extension Timeframe {
@@ -64,6 +76,12 @@ extension Timeframe {
         return dateFormatter.string(from: dateAsDate)
     }
     
+    private func morphDayDateToInt(dateAsDate: Date) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        return Int(dateFormatter.string(from: dateAsDate))!
+    }
+    
     public var dayfromAsDate: Date {
         return morphDayIntToDate(dateAsInt: t_dayfrom)
     }
@@ -88,10 +106,17 @@ extension Timeframe {
         return date
     }
     
-    private func morphTimeDateToString(iTime: Date) -> String{
+    private func morphTimeDateToString(timeAsDate: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        return dateFormatter.string(from: iTime)
+        return dateFormatter.string(from: timeAsDate)
+    }
+    
+    private func morphTimeDateToInt(timeAsDate: Date) -> Int{
+        let calendar = Calendar.current
+        let hours = calendar.component(.hour, from: timeAsDate)
+        let minutes = calendar.component(.minute, from: timeAsDate)
+        return hours * 60 + minutes
     }
     
     public var timefromAsDate: Date {
@@ -99,7 +124,7 @@ extension Timeframe {
     }
     
     public var timefromAsString: String {
-        return morphTimeDateToString(iTime: timefromAsDate)
+        return morphTimeDateToString(timeAsDate: timefromAsDate)
     }
     
     public var timeuntilAsDate: Date {
@@ -107,6 +132,6 @@ extension Timeframe {
     }
     
     public var timeuntilAsString: String {
-        return morphTimeDateToString(iTime: timeuntilAsDate)
+        return morphTimeDateToString(timeAsDate: timeuntilAsDate)
     }
 }

@@ -37,6 +37,7 @@ struct TabBarSkeleton: View {
             TabBar(currentTab: $currentTab, bottomSpace: bottomSpace),
             alignment: .bottom
         )
+        .padding(.top,5)
     }
 }
 

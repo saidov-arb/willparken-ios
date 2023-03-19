@@ -17,12 +17,12 @@ struct DashboardView: View {
                 WPTitle(title: "WillParken", description: "Bleib stabil.")
                     .padding(.bottom, 25)
                 
-                DashboardCard(title: "Your Parkingspots (\(wpvm.currentParkingspots?.count ?? 0))", destination: {
+                DashboardCard(title: "Parkplätze (\(wpvm.currentParkingspots?.count ?? 0))", destination: {
                     AnyView(
-                        ParkingspotsList()
-                            .environmentObject(wpvm.wpapi)
+                        ParkingspotList()
+                            .environmentObject(wpvm)
                     )
-                }) {
+                }, container: wpvm.currentParkingspots?.count ?? 0 > 0 ? {
                     if let parkingspots = wpvm.currentParkingspots {
                         return AnyView(
                             ForEach(parkingspots.prefix(3)) { iParkingspot in
@@ -35,7 +35,7 @@ struct DashboardView: View {
                                             Image(systemName: "mappin.and.ellipse")
                                             Text("\(iParkingspot.pa_address.a_zip)")
                                             Divider().frame(height: 20).background(.blue)
-                                            Text("\(iParkingspot.pa_address.a_street)")
+                                            Text("\(iParkingspot.pa_address.a_street) \(iParkingspot.pa_address.a_houseno)")
                                             Divider().frame(height: 20).background(.blue)
                                             Text("\(iParkingspot.p_number)")
                                         }
@@ -48,14 +48,14 @@ struct DashboardView: View {
                     } else {
                         return AnyView(EmptyView())
                     }
-                }
+                } : nil)
                 
-                DashboardCard(title: "Your Cars (\(wpvm.currentUser?.uc_cars.count ?? 0))", destination: {
+                DashboardCard(title: "Fahrzeuge (\(wpvm.currentUser?.uc_cars.count ?? 0))", destination: {
                     AnyView(
                         CarList()
-                            .environmentObject(wpvm.wpapi)
+                            .environmentObject(wpvm)
                     )
-                }) {
+                }, container: wpvm.currentUser?.uc_cars.count ?? 0 > 0 ? {
                     if let cars = wpvm.currentUser?.uc_cars {
                         return AnyView(
                             ForEach(cars.prefix(3)){ iCar in
@@ -77,21 +77,49 @@ struct DashboardView: View {
                     }else{
                         return AnyView(EmptyView())
                     }
-                }
+                } : nil)
+                
+                DashboardCard(title: "Reservierungen (\(wpvm.currentReservations?.count ?? 0))", destination: {
+                    AnyView(
+                        ReservationList()
+                            .environmentObject(wpvm)
+                    )
+                }, container: wpvm.currentReservations != nil ? {
+                    if let reservations = wpvm.currentReservations {
+                        return AnyView(
+                            ForEach(reservations.prefix(3)){ iReservation in
+                                HStack{
+                                    Image(systemName: "calendar.badge.clock")
+                                        .font(.title)
+                                        .padding([.leading,.trailing],5)
+                                    VStack (alignment: .leading){
+                                        Text("\(iReservation.rt_timeframe.dayfromAsString) - \(iReservation.rt_timeframe.dayuntilAsString)")
+                                        Text("\(iReservation.rt_timeframe.timefromAsString) - \(iReservation.rt_timeframe.timeuntilAsString)")
+                                    }
+                                    .textCase(.uppercase)
+                                }
+                            }
+                        )
+                    }else{
+                        return AnyView(EmptyView())
+                    }
+                }: nil)
                 
                 Rectangle()
                     .foregroundColor(Color(.black).opacity(0))
-                    .frame(height: 50)
+                    .frame(height: 80)
             }
             .padding(.horizontal, 15)
         }
         .refreshable {
             wpvm.loadParkingspotsFromUser()
             wpvm.loadCarsFromUser()
+            wpvm.loadReservationsFromUser()
         }
         .onAppear {
             wpvm.loadParkingspotsFromUser()
             wpvm.loadCarsFromUser()
+            wpvm.loadReservationsFromUser()
         }
     }
 }
