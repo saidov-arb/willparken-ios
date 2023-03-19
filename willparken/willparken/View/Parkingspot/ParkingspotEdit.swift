@@ -14,9 +14,13 @@ struct ParkingspotEdit: View {
     @Environment(\.dismiss) var dismiss
     var parkingspot: Parkingspot?
     
+    @State private var isLoading: Bool = false
+    @State private var isError: Bool = false
+    @State private var errorMsg: String = ""
+    
     @State private var empty = ""
-    @State private var no = "22"
-    @State private var priceperhour = 1
+    @State private var no = ""
+    @State private var priceperhour = 0
     @State private var status = "active"
     @State private var tagsArray = [false,false,false,false,false]
     @State private var tagsArrayNames = ["Roof","Gate","Indoor","E-Charger","Security"]
@@ -26,10 +30,10 @@ struct ParkingspotEdit: View {
     @State private var timefrom = Date()
     @State private var timeuntil = Date()
     @State private var country = "Austria"
-    @State private var city = "Wels"
-    @State private var zip = "4600"
-    @State private var street = "Kamerlweg"
-    @State private var houseno = "21a"
+    @State private var city = ""
+    @State private var zip = ""
+    @State private var street = ""
+    @State private var houseno = ""
     @State private var currentCoordinate: EquatableCoordinate?
     
     init(parkingspot: Parkingspot? = nil){
@@ -72,7 +76,7 @@ struct ParkingspotEdit: View {
                 Button {
                     save()
                 } label: {
-                    Text("Save")
+                    Text("Speichern")
                 }
                 .disabled(status == "deleted")
                 Spacer()
@@ -89,10 +93,10 @@ struct ParkingspotEdit: View {
                     //  Number, Price and Tags
                     VStack{
                         HStack{
-                            WPTagContainer(tag: "No") { AnyView(
-                                WPTextField(placeholder: "No", text: $no)
+                            WPTagContainer(tag: "Nr") { AnyView(
+                                WPTextField(placeholder: "Nr", text: $no)
                             )}
-                            WPTagContainer(tag: "Price / hour") { AnyView(
+                            WPTagContainer(tag: "Preis / Stunde") { AnyView(
                                 WPStepper(value: $priceperhour, in: 0...50)
                             )}
                             WPTagContainer(tag: "Status") { AnyView(
@@ -130,7 +134,7 @@ struct ParkingspotEdit: View {
 
                     //  Availability
                     VStack(alignment:.leading){
-                        WPTagContainer(tag: "Weekday") { AnyView(
+                        WPTagContainer(tag: "Wochentage") { AnyView(
                             HStack{
                                 ForEach(0..<7) { index in
                                     WeekdayButtonView(dayIndex: index, isActive: $weekdays[index])
@@ -138,21 +142,21 @@ struct ParkingspotEdit: View {
                             }
                         )}
                         HStack{
-                            WPTagContainer(tag: "Date from") { AnyView(
-                                DatePicker("",selection: $dayfrom, displayedComponents: .date)
+                            WPTagContainer(tag: "Datum von") { AnyView(
+                                DatePicker("",selection: $dayfrom, in: Date()..., displayedComponents: .date)
                                     .labelsHidden()
                             )}
-                            WPTagContainer(tag: "Date until") { AnyView(
-                                DatePicker("", selection: $dayuntil, displayedComponents: .date)
+                            WPTagContainer(tag: "Datum bis") { AnyView(
+                                DatePicker("", selection: $dayuntil, in: dayfrom..., displayedComponents: .date)
                                     .labelsHidden()
                             )}
                         }
                         HStack{
-                            WPTagContainer(tag: "Time from") { AnyView(
+                            WPTagContainer(tag: "Uhrzeit von") { AnyView(
                                 DatePicker("",selection: $timefrom, displayedComponents: .hourAndMinute)
                                     .labelsHidden()
                             )}
-                            WPTagContainer(tag: "Time until") { AnyView(
+                            WPTagContainer(tag: "Uhrzeit bis") { AnyView(
                                 DatePicker("",selection: $timeuntil, displayedComponents: .hourAndMinute)
                                     .labelsHidden()
                             )}
@@ -165,24 +169,24 @@ struct ParkingspotEdit: View {
                     VStack{
                         VStack{
                             HStack{
-                                WPTagContainer (tag: "Country") { AnyView(
+                                WPTagContainer (tag: "Land") { AnyView(
                                     WPDropdownMenu(selectedItem: $country, selectionArray: ["Austria","Germany"])
                                 )}
                                 .frame(minWidth: 125, maxHeight: 70)
-                                WPTagContainer (tag: "City") { AnyView(
+                                WPTagContainer (tag: "Stadt") { AnyView(
                                     WPTextField(placeholder: "City", text: $city)
                                 )}
                                 .frame(minWidth: 125)
-                                WPTagContainer (tag: "ZIP") { AnyView(
+                                WPTagContainer (tag: "PLZ") { AnyView(
                                     WPTextField(placeholder: "ZIP", text: $zip)
                                 )}
                             }
                             HStack{
-                                WPTagContainer (tag: "Street") { AnyView(
+                                WPTagContainer (tag: "Straße") { AnyView(
                                     WPTextField(placeholder: "Street", text: $street)
                                 )}
                                 .frame(minWidth: 250)
-                                WPTagContainer (tag: "Houseno") { AnyView(
+                                WPTagContainer (tag: "Haus Nr") { AnyView(
                                     WPTextField(placeholder: "Houseno", text: $houseno)
                                 )}
                             }
@@ -249,6 +253,19 @@ struct ParkingspotEdit: View {
                 .padding()
             }
         }
+        .disabled(isLoading)
+        .opacity(isLoading ? 0.5 : 1)
+        .alert(isPresented: $isError) {
+            Alert(title: Text("Oh nein!"), message: Text(errorMsg), dismissButton: .default(Text("OK")))
+        }
+        .overlay(
+            ZStack{
+                if isLoading {
+                    ProgressView()
+                        .controlSize(.large)
+                }
+            }
+        )
     }
     
     private func close(){
@@ -259,7 +276,7 @@ struct ParkingspotEdit: View {
     private func save(){
         print("Save klicked.")
         saveParkingspot()
-        dismiss()
+        if !isError { dismiss() }
     }
     
     private func dayDateToInt(dayAsDate: Date) -> Int{
@@ -275,6 +292,11 @@ struct ParkingspotEdit: View {
     
     private func saveParkingspot(){
         guard let userid = wpvm.currentUser?._id else {fatalError("currentUser not set.")}
+        guard country != "" && city != "" && street != "" && zip != "" else {
+            isError = true
+            errorMsg = "Land, Stadt, PLZ und Straße müssen gesetzt sein."
+            return
+        }
         var newWeekdays: [Int] = []
         var newTags: [String] = []
         for (index, isset) in weekdays.enumerated() {
@@ -293,18 +315,33 @@ struct ParkingspotEdit: View {
         if let currentParkingspot = parkingspot {
             if !currentParkingspot.issameas(newParkingspot: newParkingspot){
                 newParkingspot._id = currentParkingspot._id
+                isLoading = true
                 wpvm.updateParkingspot(parkingspot: newParkingspot) { msg in
+                    isLoading = false
                     if let msg = msg {
                         print(msg)
                     }
+                } failure: { err in
+                    isLoading = false
+                    if let err = err {
+                        errorMsg = err
+                        isError = true
+                    }
                 }
             }else{
-                print("Nothing changed.")
+                errorMsg = "Nichts verändert."
+                isError = true
             }
         }else{
             wpvm.addParkingspot(parkingspot: newParkingspot) { msg in
                 if let msg = msg {
                    print(msg)
+                }
+            } failure: { err in
+                isLoading = false
+                if let err = err {
+                    errorMsg = err
+                    isError = true
                 }
             }
         }

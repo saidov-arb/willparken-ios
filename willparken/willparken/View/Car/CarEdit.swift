@@ -16,6 +16,10 @@ struct CarEdit: View {
     @State private var model = ""
     @State private var licenceplate = ""
     
+    @State private var isLoading: Bool = false
+    @State private var isError: Bool = false
+    @State private var errorMsg: String = ""
+    
     init(car: Car? = nil){
         if let iCar = car {
             self.car = iCar
@@ -72,6 +76,19 @@ struct CarEdit: View {
                 .padding()
             }
         }
+        .alert(isPresented: $isError) {
+            Alert(title: Text("Oh nein!"), message: Text(errorMsg), dismissButton: .default(Text("OK")))
+        }
+        .disabled(isLoading)
+        .opacity(isLoading ? 0.5 : 1)
+        .overlay(
+            ZStack{
+                if isLoading {
+                    ProgressView()
+                        .controlSize(.large)
+                }
+            }
+        )
     }
     
     private func close(){
@@ -81,31 +98,49 @@ struct CarEdit: View {
     
     private func save(){
         print("Save klicked.")
-        saveCar()
-        dismiss()
+        if saveCar() { dismiss() }
     }
     
-    private func saveCar(){
+    private func saveCar() -> Bool{
+        guard (car != nil && !(car?.c_isreserved ?? true)) || car == nil else {
+            errorMsg = "Das Fahrzeug kann nicht bearbeitet werden, da es in einer Reservierung benötigt wird."
+            isError = true
+            return false
+        }
+        
+        guard brand != "" && model != "" && licenceplate != "" else {
+            errorMsg = "Alle Felder müssen ausgefüllt sein."
+            isError = true
+            return false
+        }
+        
         let newCar = Car(c_brand: brand, c_model: model, c_licenceplate: licenceplate)
         
         if let currentCar = car {
             if !currentCar.issameas(newCar: newCar) {
                 newCar._id = currentCar._id
+                isLoading = true
                 wpvm.updateCar(car: newCar) { msg in
                     if let msg = msg {
                         print(msg)
                     }
+                    isLoading = false
                 }
             } else {
-                print("Nothing changed.")
+                errorMsg = "Nichts wurde verändert."
+                isError = true
+                return false
             }
         }else{
+            isLoading = true
             wpvm.addCar(car: newCar) { msg in
                 if let msg = msg {
                     print(msg)
                 }
+                isLoading = false
             }
         }
+        return true
     }
 }
 

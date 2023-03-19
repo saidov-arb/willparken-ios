@@ -10,53 +10,92 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject var wpvm: WPViewModel
     @Binding var registerSwitch: Bool
+    
     @State private var username: String = ""
     @State private var password: String = ""
     
+    @State private var isLoading: Bool = false
+    @State private var isError: Bool = false
+    @State private var errorMsg: String = ""
+    
     var body: some View {
         VStack {
-            
-//            Text("Ich WillParken!")
-//                .font(.largeTitle)
-//                .frame(maxWidth: .infinity, alignment: .center)
             WPTitle(title: "WillParken", description: "Bleib stabil.")
             
             Spacer()
             
-            Text("Login")
-                .font(.title)
-                .frame(maxWidth: .infinity,alignment: .leading)
-            
-            WPTextField(placeholder: "Username", text: $username)
-                .padding(.top, 20)
-            WPTextField(placeholder: "Password", text: $password, isPassword: true)
-                .padding(.top, 10)
-            
-            HStack{
-                WPButton(backgroundColor: .blue, foregroundColor: .white, label: "LogIn") {
-                    guard !username.isEmpty, !password.isEmpty else {
-                        print("One or more fields are empty.")
-                        return
-                    }
-                    wpvm.loginUser(iUsername: username, iPassword: password) { msg in
-                        if let msg = msg {
-                            print(msg)
+            ScrollView{
+                Group{
+                    HStack{
+                        Text("Anmelden")
+                            .font(.title)
+                            .frame(maxWidth: .infinity,alignment: .leading)
+                        if(isLoading){
+                            ProgressView()
                         }
                     }
+                    .padding(.trailing)
+                    
+                    WPTagContainer (tag: "Benutzername"){AnyView(
+                        WPTextField(placeholder: "Benutzername", text: $username)
+                    )}
+                    .padding(.top, 10)
+                    WPTagContainer (tag: "Passwort"){AnyView(
+                        WPTextField(placeholder: "Passwort", text: $password, isPassword: true)
+                    )}
+                    .padding(.top, 10)
+                    
+                    HStack{
+                        WPButton(backgroundColor: .blue, foregroundColor: .white, label: "Anmelden") {
+                            guard username != "" && password != "" else {
+                                errorMsg = "Bitte alle Felder ausfüllen."
+                                isError = true
+                                return
+                            }
+                            
+                            isLoading = true
+                            wpvm.loginUser(iUsername: username, iPassword: password) { msg in
+                                isLoading = false
+                                if let msg = msg {
+                                    print(msg)
+                                }
+                            } failure: { err in
+                                isLoading = false
+                                if let err = err {
+                                    errorMsg = "Falsches Passwort oder falscher Benutzername."
+                                    isError = true
+                                    print(err)
+                                }
+                            }
+                        }
+                        .alert(isPresented: $isError) {
+                            Alert(title: Text("Oh nein!"), message: Text(errorMsg), dismissButton: .default(Text("OK")))
+                        }
+                        
+                        WPButton(backgroundColor: .white, foregroundColor: .blue, label: "Registrieren") {
+                            registerSwitch.toggle()
+                        }
+                    } // HStack
+                    .padding(.top,20)
                 }
+                .padding(.horizontal,2)
                 
-                WPButton(backgroundColor: .white, foregroundColor: .blue, label: "Register") {
-                    registerSwitch.toggle()
-                }
-            }
-            .padding(.top, 35)
+                Spacer()
+                
+            } // ScrollView
+            .scrollIndicators(.hidden)
+            .frame(height: UIScreen.main.bounds.height * 0.5)
             
             Spacer()
-        }
+            
+        } // VStack
+        .disabled(isLoading)
+        .opacity(isLoading ? 0.5 : 1)
         .padding(.horizontal, 25)
         .padding(.vertical)
     }
 }
+
 
 struct LoginViewTest: View {
     @State var registerSwitch: Bool = false

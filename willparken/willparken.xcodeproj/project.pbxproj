@@ -24,11 +24,12 @@
 		B32482E929B369870072B36D /* SampleReservation.json in Resources */ = {isa = PBXBuildFile; fileRef = B32482E829B368E90072B36D /* SampleReservation.json */; };
 		B32482EB29B36E190072B36D /* SampleParkingspotArray.json in Resources */ = {isa = PBXBuildFile; fileRef = B32482EA29B36C970072B36D /* SampleParkingspotArray.json */; };
 		B33985D029AC019100EF1AB2 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33985CF29AC019100EF1AB2 /* Reservation.swift */; };
-		B341B9B529B789310075FE75 /* ReservationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B341B9B429B789310075FE75 /* ReservationList.swift */; };
+		B341B9B529B789310075FE75 /* ReservationParkingspotList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B341B9B429B789310075FE75 /* ReservationParkingspotList.swift */; };
 		B341B9B829B789C20075FE75 /* ReservationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B341B9B729B789C20075FE75 /* ReservationCard.swift */; };
 		B3486A5929AE786900C4B5A9 /* CarCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3486A5829AE786900C4B5A9 /* CarCard.swift */; };
 		B3486A5B29AE787300C4B5A9 /* CarList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3486A5A29AE787300C4B5A9 /* CarList.swift */; };
 		B3486A5D29AE787F00C4B5A9 /* CarEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3486A5C29AE787F00C4B5A9 /* CarEdit.swift */; };
+		B348A02D29BE194500A9F02F /* ReservationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B348A02C29BE194500A9F02F /* ReservationList.swift */; };
 		B34FA02329AD3EA00074458B /* WPWeekdayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FA02229AD3EA00074458B /* WPWeekdayItem.swift */; };
 		B3538C4629A816940083CF5B /* ParkingspotEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3538C4529A816940083CF5B /* ParkingspotEdit.swift */; };
 		B35BF413297C018A00407CED /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BF412297C018A00407CED /* DashboardView.swift */; };
@@ -38,6 +39,9 @@
 		B362F4F829991416004791D4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B362F4F729991416004791D4 /* ProfileView.swift */; };
 		B3726800298688E500E50D1A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37267FF298688E500E50D1A /* LoginView.swift */; };
 		B37268022986905C00E50D1A /* WPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37268012986905C00E50D1A /* WPButton.swift */; };
+		B3772BCE29BF8C680041D3E2 /* ProfilePersonalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3772BCD29BF8C680041D3E2 /* ProfilePersonalData.swift */; };
+		B3772BD029BF94B10041D3E2 /* ProfileBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3772BCF29BF94B10041D3E2 /* ProfileBalance.swift */; };
+		B3772BD229BF94BD0041D3E2 /* ProfileSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3772BD129BF94BD0041D3E2 /* ProfileSecurity.swift */; };
 		B377838229BC8C55004F9E25 /* WPDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377838129BC8C55004F9E25 /* WPDropdownMenu.swift */; };
 		B377838429BCD4D7004F9E25 /* SearchFilterEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377838329BCD4D7004F9E25 /* SearchFilterEdit.swift */; };
 		B3793A9329A3BDAE00B99EA9 /* ParkingspotList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3793A9229A3BDAE00B99EA9 /* ParkingspotList.swift */; };
@@ -53,6 +57,7 @@
 		B3D873DF29ABEE6E00F63307 /* WPTagContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D873DE29ABEE6E00F63307 /* WPTagContainer.swift */; };
 		B3E8EE4129B6774F00452513 /* WPStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E8EE4029B6774F00452513 /* WPStepper.swift */; };
 		B3E8EE4329B6825F00452513 /* WPStatusToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E8EE4229B6825F00452513 /* WPStatusToggle.swift */; };
+		B3E9FEF429BDF0CA00BD821A /* ReservationEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E9FEF329BDF0CA00BD821A /* ReservationEdit.swift */; };
 		B3F49B5329B4F50F002AE528 /* WPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F49B5229B4F50F002AE528 /* WPViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,11 +81,12 @@
 		B32482E829B368E90072B36D /* SampleReservation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SampleReservation.json; sourceTree = "<group>"; };
 		B32482EA29B36C970072B36D /* SampleParkingspotArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SampleParkingspotArray.json; sourceTree = "<group>"; };
 		B33985CF29AC019100EF1AB2 /* Reservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
-		B341B9B429B789310075FE75 /* ReservationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationList.swift; sourceTree = "<group>"; };
+		B341B9B429B789310075FE75 /* ReservationParkingspotList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationParkingspotList.swift; sourceTree = "<group>"; };
 		B341B9B729B789C20075FE75 /* ReservationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationCard.swift; sourceTree = "<group>"; };
 		B3486A5829AE786900C4B5A9 /* CarCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCard.swift; sourceTree = "<group>"; };
 		B3486A5A29AE787300C4B5A9 /* CarList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarList.swift; sourceTree = "<group>"; };
 		B3486A5C29AE787F00C4B5A9 /* CarEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarEdit.swift; sourceTree = "<group>"; };
+		B348A02C29BE194500A9F02F /* ReservationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationList.swift; sourceTree = "<group>"; };
 		B34FA02229AD3EA00074458B /* WPWeekdayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPWeekdayItem.swift; sourceTree = "<group>"; };
 		B3538C4529A816940083CF5B /* ParkingspotEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingspotEdit.swift; sourceTree = "<group>"; };
 		B35BF412297C018A00407CED /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -90,6 +96,9 @@
 		B362F4F729991416004791D4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B37267FF298688E500E50D1A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B37268012986905C00E50D1A /* WPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPButton.swift; sourceTree = "<group>"; };
+		B3772BCD29BF8C680041D3E2 /* ProfilePersonalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePersonalData.swift; sourceTree = "<group>"; };
+		B3772BCF29BF94B10041D3E2 /* ProfileBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBalance.swift; sourceTree = "<group>"; };
+		B3772BD129BF94BD0041D3E2 /* ProfileSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSecurity.swift; sourceTree = "<group>"; };
 		B377838129BC8C55004F9E25 /* WPDropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPDropdownMenu.swift; sourceTree = "<group>"; };
 		B377838329BCD4D7004F9E25 /* SearchFilterEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterEdit.swift; sourceTree = "<group>"; };
 		B3793A9229A3BDAE00B99EA9 /* ParkingspotList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingspotList.swift; sourceTree = "<group>"; };
@@ -106,6 +115,7 @@
 		B3D873DE29ABEE6E00F63307 /* WPTagContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPTagContainer.swift; sourceTree = "<group>"; };
 		B3E8EE4029B6774F00452513 /* WPStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPStepper.swift; sourceTree = "<group>"; };
 		B3E8EE4229B6825F00452513 /* WPStatusToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPStatusToggle.swift; sourceTree = "<group>"; };
+		B3E9FEF329BDF0CA00BD821A /* ReservationEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationEdit.swift; sourceTree = "<group>"; };
 		B3F49B5229B4F50F002AE528 /* WPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,10 +211,10 @@
 			children = (
 				B32482DD29B359DC0072B36D /* SampleUser.json */,
 				B32482E029B3626F0072B36D /* SampleCar.json */,
-				B32482E229B364FE0072B36D /* SampleParkingspot.json */,
 				B32482E429B3688B0072B36D /* SampleAddress.json */,
 				B32482E629B368B80072B36D /* SampleTimeframe.json */,
 				B32482E829B368E90072B36D /* SampleReservation.json */,
+				B32482E229B364FE0072B36D /* SampleParkingspot.json */,
 				B32482EA29B36C970072B36D /* SampleParkingspotArray.json */,
 			);
 			path = SampleData;
@@ -213,8 +223,10 @@
 		B341B9B629B789540075FE75 /* Reservation */ = {
 			isa = PBXGroup;
 			children = (
-				B341B9B429B789310075FE75 /* ReservationList.swift */,
+				B341B9B429B789310075FE75 /* ReservationParkingspotList.swift */,
 				B341B9B729B789C20075FE75 /* ReservationCard.swift */,
+				B3E9FEF329BDF0CA00BD821A /* ReservationEdit.swift */,
+				B348A02C29BE194500A9F02F /* ReservationList.swift */,
 			);
 			path = Reservation;
 			sourceTree = "<group>";
@@ -252,6 +264,9 @@
 			isa = PBXGroup;
 			children = (
 				B362F4F729991416004791D4 /* ProfileView.swift */,
+				B3772BCD29BF8C680041D3E2 /* ProfilePersonalData.swift */,
+				B3772BCF29BF94B10041D3E2 /* ProfileBalance.swift */,
+				B3772BD129BF94BD0041D3E2 /* ProfileSecurity.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -353,6 +368,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				de,
 				Base,
 			);
 			mainGroup = B30E2C66296EA21100064A55;
@@ -395,10 +411,12 @@
 				B3CE691B29AB8AFF0086A2BF /* Mapapi.swift in Sources */,
 				B33985D029AC019100EF1AB2 /* Reservation.swift in Sources */,
 				B35BF415297C091400407CED /* MainView.swift in Sources */,
+				B348A02D29BE194500A9F02F /* ReservationList.swift in Sources */,
 				B3D6D0CD2975801800B28336 /* WPTitle.swift in Sources */,
 				B30E8D69297C7EF00092FD63 /* Car.swift in Sources */,
 				B34FA02329AD3EA00074458B /* WPWeekdayItem.swift in Sources */,
 				B3D873DF29ABEE6E00F63307 /* WPTagContainer.swift in Sources */,
+				B3772BCE29BF8C680041D3E2 /* ProfilePersonalData.swift in Sources */,
 				B3726800298688E500E50D1A /* LoginView.swift in Sources */,
 				B3833EF6299AC48C000F9DFD /* DashboardCard.swift in Sources */,
 				B362F4F2299912B1004791D4 /* TabBarSkeleton.swift in Sources */,
@@ -408,11 +426,13 @@
 				B3486A5D29AE787F00C4B5A9 /* CarEdit.swift in Sources */,
 				B39CE1202996CB0E00B257E9 /* TabBarButton.swift in Sources */,
 				B3538C4629A816940083CF5B /* ParkingspotEdit.swift in Sources */,
+				B3772BD229BF94BD0041D3E2 /* ProfileSecurity.swift in Sources */,
 				B322BA6A29859E7000889FAF /* HTTPMethod.swift in Sources */,
 				B30E8D65297C7DB40092FD63 /* WPapi.swift in Sources */,
 				B39CE11D2996CA6200B257E9 /* TabBar.swift in Sources */,
 				B3793A9529A3C27F00B99EA9 /* ParkingspotCard.swift in Sources */,
-				B341B9B529B789310075FE75 /* ReservationList.swift in Sources */,
+				B341B9B529B789310075FE75 /* ReservationParkingspotList.swift in Sources */,
+				B3E9FEF429BDF0CA00BD821A /* ReservationEdit.swift in Sources */,
 				B30E2C73296EA21100064A55 /* WillParkenApp.swift in Sources */,
 				B3793A9329A3BDAE00B99EA9 /* ParkingspotList.swift in Sources */,
 				B39E88162983E188000A1CB5 /* Parkingspot.swift in Sources */,
@@ -426,6 +446,7 @@
 				B362F4F829991416004791D4 /* ProfileView.swift in Sources */,
 				B30E8D62297C40FC0092FD63 /* WPTextField.swift in Sources */,
 				B3E8EE4329B6825F00452513 /* WPStatusToggle.swift in Sources */,
+				B3772BD029BF94B10041D3E2 /* ProfileBalance.swift in Sources */,
 				B3F49B5329B4F50F002AE528 /* WPViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

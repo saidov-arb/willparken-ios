@@ -24,7 +24,6 @@ struct ParkingspotCard: View {
                 .cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 1, green: 0.95, blue: 0.2)).blur(radius: 2))
             }
-            //  MARK: What if weekday is unknown? Or some information is irrelevant?
             VStack (alignment: .leading,spacing: 5){
                 HStack{
                     Image(systemName: "mappin.and.ellipse")
@@ -46,16 +45,32 @@ struct ParkingspotCard: View {
                     Text("-")
                     Text("\( parkingspot.pt_availability.dayuntilAsString)")
                 }
-                HStack{
-                    Image(systemName: "7.square")
-                    if parkingspot.pt_availability.t_weekday.count == 7 || parkingspot.pt_availability.t_weekday.count == 0 {
-                        WeekdayView(dayIndex: 7)
-                    }else {
+                if parkingspot.pt_availability.t_weekday.count != 7 && parkingspot.pt_availability.t_weekday.count != 0 {
+                    HStack{
+                        Image(systemName: "7.square")
                         ForEach(parkingspot.pt_availability.t_weekday, id: \.self) { dayIndex in
                             WeekdayView(dayIndex: dayIndex-1)
                                 .frame(maxWidth: 32)
                         }
                     }
+                }
+                if parkingspot.p_tags.count > 0 {
+                    HStack{
+                        Image(systemName: "tag")
+                            .padding(.trailing,-3)
+                        LazyVGrid(columns: [GridItem(.fixed(100)), GridItem(.fixed(100))]) {
+                            ForEach(parkingspot.p_tags, id: \.self){ tag in
+                                Text(tag)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 25)
+                                    .background(Color(red: 0.85, green: 0.85, blue: 1))
+                                    .foregroundColor(.black)
+                                    .cornerRadius(10)
+                                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 0.75, green: 0.75, blue: 1)).blur(radius: 2))
+                            }
+                        }
+                    }
+                    .padding(.top,1)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

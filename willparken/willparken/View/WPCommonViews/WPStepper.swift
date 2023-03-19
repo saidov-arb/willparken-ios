@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct WPStepper: View {
+    var steps: Int = 1
     @Binding var value: Int
     var `in`: ClosedRange<Int>
     
@@ -19,18 +20,19 @@ struct WPStepper: View {
         switch controlSize {
         case .mini: return 4
         case .small: return 6
+        case .large: return 30
         default: return 8
         }
     }
         
     var body: some View {
         HStack {
-            Button { value -= value == `in`.lowerBound ? 0 : 1 } label: {
+            Button { value -= value == `in`.lowerBound ? 0 : steps } label: {
                 Image(systemName: "minus")
             }
             Text(value.formatted())
                 .frame(minWidth: 25)
-            Button { value += value == `in`.upperBound ? 0 : 1 } label: {
+            Button { value += value == `in`.upperBound ? 0 : steps } label: {
                 Image(systemName: "plus")
             }
         }
@@ -39,6 +41,7 @@ struct WPStepper: View {
             switch controlSize {
             case .mini: font = .footnote
             case .small: font = .callout
+            case .large: font = .largeTitle
             default: font = .body
             }
 

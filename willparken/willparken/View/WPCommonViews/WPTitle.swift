@@ -13,7 +13,7 @@ struct WPTitle: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5){
             Text(title)
-                .font(.title)
+                .font(.largeTitle)
                 .foregroundColor(Color(.blue))
                 .fontWeight(.regular)
             Text(description)

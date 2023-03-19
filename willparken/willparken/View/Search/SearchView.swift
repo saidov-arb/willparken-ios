@@ -14,6 +14,7 @@ struct SearchView: View {
     
     @State private var filterEditSheetOpen = false
     @State private var useFilters = false
+    @State private var selectedParkingspotToReserve: Parkingspot?
     
     @State private var priceperhour = 0
     @State private var tags: [String] = []
@@ -29,93 +30,114 @@ struct SearchView: View {
     @State private var street = "Kamerlweg"
     @State private var houseno = "21a"
     
+    @State private var isLoading: Bool = false
+    @State private var isError: Bool = false
+    @State private var errorMsg: String = ""
+    
     var body: some View {
-        ScrollView {
-            
-            //  Address
-            VStack{
+        NavigationView {
+            ScrollView {
+                WPTitle(title: "Suchen", description: "Finde deinen Platz.")
+                    .padding(.horizontal,20)
+                
+                //  Address
                 VStack{
-                    HStack{
-                        WPTagContainer (tag: "Country") { AnyView(
-                            WPDropdownMenu(selectedItem: $country, selectionArray: ["Austria","Germany"])
-                        )}
-                        .frame(minWidth: 125, maxHeight: 70)
-                        WPTagContainer (tag: "City") { AnyView(
-                            WPTextField(placeholder: "City", text: $city)
-                        )}
-                        .frame(minWidth: 125)
-                        WPTagContainer (tag: "ZIP") { AnyView(
-                            WPTextField(placeholder: "ZIP", text: $zip)
-                        )}
-                    }
-                    HStack{
-                        WPTagContainer (tag: "Street") { AnyView(
-                            WPTextField(placeholder: "Street", text: $street)
-                        )}
-                        .frame(minWidth: 250)
-                        WPTagContainer (tag: "Houseno") { AnyView(
-                            WPTextField(placeholder: "Houseno", text: $houseno)
-                        )}
-                    }
-                    HStack{
-                        WPButton(backgroundColor: Color(red: 0.65, green: 0.65, blue: 0.85), foregroundColor: .white, label: "Search") {
-                            wpvm.searchParkingspots(address: makeAddress()) { response in
-                                if let response = response {
-                                    print(response)
-                                    mapapi.setLocationsWithMAddressArray(arrayOfMAddress: wpvm.getSearchedParkingspotsMAddressArray())
+                    VStack{
+                        HStack{
+                            WPTagContainer (tag: "Land") { AnyView(
+                                WPDropdownMenu(selectedItem: $country, selectionArray: ["Austria","Germany"])
+                            )}
+                            .frame(minWidth: 125, maxHeight: 70)
+                            WPTagContainer (tag: "Stadt") { AnyView(
+                                WPTextField(placeholder: "Stadt", text: $city)
+                            )}
+                            .frame(minWidth: 125)
+                            WPTagContainer (tag: "PLZ") { AnyView(
+                                WPTextField(placeholder: "PLZ", text: $zip)
+                            )}
+                        }
+                        HStack{
+                            WPTagContainer (tag: "Straße") { AnyView(
+                                WPTextField(placeholder: "Straße", text: $street)
+                            )}
+                            .frame(minWidth: 250)
+                            WPTagContainer (tag: "Haus Nr") { AnyView(
+                                WPTextField(placeholder: "Haus Nr", text: $houseno)
+                            )}
+                        }
+                        HStack{
+                            WPButton(backgroundColor: Color(red: 0.65, green: 0.65, blue: 0.85), foregroundColor: .white, label: "Suchen") {
+                                wpvm.searchParkingspots(address: makeAddress()) { response in
+                                    if let response = response {
+                                        print(response)
+                                        mapapi.setLocationsWithMAddressArray(arrayOfMAddress: wpvm.getSearchedParkingspotsMAddressArray())
+                                    }
                                 }
                             }
+                            Button {
+                                filterEditSheetOpen = true
+                            } label: {
+                                Image(systemName: "gearshape")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(Color(red: 0.55, green: 0.55, blue: 0.85))
+                            }
                         }
-                        Button {
-                            filterEditSheetOpen = true
-                        } label: {
-                            Image(systemName: "gearshape")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(Color(red: 0.55, green: 0.55, blue: 0.85))
-                        }
-                        .padding(.horizontal)
+                        .padding(.top)
                     }
-                    .padding(.top)
+                    .padding(.bottom)
+                    
+                    Map(coordinateRegion: $mapapi.region, annotationItems: mapapi.locations) { location in
+                        MapMarker(coordinate: location.coordinate, tint: .blue)
+                    }
+                    .frame(width: UIScreen.main.bounds.width * 0.95, height: UIScreen.main.bounds.width * 0.95)
+                    .frame(alignment: .center)
+                    .cornerRadius(5)
+                    .shadow(radius: 4)
                 }
-                .padding(.bottom)
+                .padding(.top)
+                .padding(.horizontal,15)
                 
-                Map(coordinateRegion: $mapapi.region, annotationItems: mapapi.locations) { location in
-                    MapMarker(coordinate: location.coordinate, tint: .blue)
-                }
-                .frame(width: UIScreen.main.bounds.width * 0.95, height: UIScreen.main.bounds.width * 0.95)
-                .frame(alignment: .center)
-                .cornerRadius(5)
-                .shadow(radius: 4)
-            }
-            .padding(.top)
-            .padding(.horizontal)
-            
-            Divider()
-                .padding([.top,.bottom])
-            
-            if let parkingspots = wpvm.searchedParkingspots{
-                VStack{
-                    if useFilters {
+                Divider()
+                    .padding([.top,.bottom])
+                
+                if let parkingspots = wpvm.searchedParkingspots{
+                    VStack{
                         ForEach(filteredParkingspots(parkingspots: parkingspots)) { iParkingspot in
                             ParkingspotCard(parkingspot: iParkingspot)
-                        }
-                    }else{
-                        ForEach(parkingspots) { iParkingspot in
-                            ParkingspotCard(parkingspot: iParkingspot)
+                                .onTapGesture {
+                                    guard wpvm.currentUser?.uc_cars.count ?? 0 > 0 else {
+                                        errorMsg = "Es wurden noch keine Fahrzeuge hinzugefügt."
+                                        isError = true
+                                        return
+                                    }
+                                    guard iParkingspot.p_status != "deleted" else {
+                                        errorMsg = "Dieser Parkplatz wurde bereits gelöscht."
+                                        isError = true
+                                        return
+                                    }
+                                    selectedParkingspotToReserve = iParkingspot
+                                }
                         }
                     }
+                    .padding(.horizontal,15)
                 }
-                .padding(.horizontal)
+                
+                Rectangle()
+                    .foregroundColor(Color(.black).opacity(0))
+                    .frame(height: 80)
             }
-            
-            Rectangle()
-                .foregroundColor(Color(.black).opacity(0))
-                .frame(height: 50)
+            .padding(.horizontal,15)
         }
-        .padding(.horizontal,15)
         .sheet(isPresented: $filterEditSheetOpen) {
             SearchFilterEdit(useFilters: $useFilters, priceperhour: $priceperhour, tags: $tags, weekdays: $weekdays, dayfrom: $dayfrom, dayuntil: $dayuntil, timefrom: $timefrom, timeuntil: $timeuntil)
+        }
+        .sheet(item: $selectedParkingspotToReserve) { parkingspot in
+            ReservationEdit(parkingspot: parkingspot)
+                .environmentObject(wpvm)
+        }
+        .alert(isPresented: $isError) {
+            Alert(title: Text("Oh nein!"), message: Text(errorMsg), dismissButton: .default(Text("OK")))
         }
     }
     
@@ -128,15 +150,19 @@ struct SearchView: View {
     private func filteredParkingspots(parkingspots: [Parkingspot]) -> [Parkingspot]{
         var newParkingspots: [Parkingspot] = []
         
-        for ps in parkingspots{
-            //  If (price is set and the price matches) or (price is not net) -> ok
-            //  If (tags are set and the tags match) or (tags are not set) -> ok
-            //  And so on.
-            if ((priceperhour > 0 && ps.p_priceperhour <= priceperhour) || (priceperhour == 0)) &&
-                ((tags.count > 0 && ps.p_tags.contains(tags)) || (tags.count == 0)) &&
-                ((weekdays.count > 0 && ps.pt_availability.t_weekday.contains(weekdays)) || (weekdays.count == 0) || (ps.pt_availability.t_weekday.count == 0 || ps.pt_availability.t_weekday.count == 7)){
+        if useFilters {
+            for ps in parkingspots{
+                //  If (price is set and the price matches) or (price is not net) -> ok
+                //  If (tags are set and the tags match) or (tags are not set) -> ok
+                //  And so on.
+                if ((priceperhour > 0 && ps.p_priceperhour <= priceperhour) || (priceperhour == 0)) &&
+                    ((tags.count > 0 && ps.p_tags.contains(tags)) || (tags.count == 0)) &&
+                    ((weekdays.count > 0 && ps.pt_availability.t_weekday.contains(weekdays)) || (weekdays.count == 0) || (ps.pt_availability.t_weekday.count == 0 || ps.pt_availability.t_weekday.count == 7)){
                     newParkingspots.append(ps)
+                }
             }
+        }else{
+            newParkingspots = parkingspots
         }
         
         return newParkingspots

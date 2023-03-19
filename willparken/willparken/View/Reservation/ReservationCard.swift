@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ReservationCard: View {
     var reservation: Reservation
+    var car: Car?
     
     var body: some View {
         HStack{
@@ -18,10 +19,17 @@ struct ReservationCard: View {
                     .padding([.leading,.trailing],5)
             }
             VStack (alignment: .leading,spacing: 5){
-                HStack{
-                    Image(systemName: "car.circle")
-                    Text("\(reservation.rc_car)")
-                        .textCase(.uppercase)
+                if let car = car {
+                    HStack{
+                        Image(systemName: "car.circle")
+                        Text("\(car.c_brand)")
+                            .textCase(.uppercase)
+                        Divider().frame(height: 20).background(.blue)
+                        Text("\(car.c_model)")
+                            .textCase(.uppercase)
+                        Divider().frame(height: 20).background(.blue)
+                        Text("\(car.c_licenceplate)")
+                    }
                 }
                 HStack{
                     Image(systemName: "clock")
@@ -35,17 +43,9 @@ struct ReservationCard: View {
                     Text("-")
                     Text("\( reservation.rt_timeframe.dayuntilAsString)")
                 }
-                HStack{
-                    Button {
-                        reservation.r_cancelled.toggle()
-                    } label: {
+                if reservation.rt_timeframe.t_weekday.count != 0 && reservation.rt_timeframe.t_weekday.count != 7{
+                    HStack{
                         Image(systemName: "7.square")
-                    }
-
-                    
-                    if reservation.rt_timeframe.t_weekday.count == 7 || reservation.rt_timeframe.t_weekday.count == 0 {
-                        WeekdayView(dayIndex: 7)
-                    }else {
                         ForEach(reservation.rt_timeframe.t_weekday, id: \.self) { dayIndex in
                             WeekdayView(dayIndex: dayIndex-1)
                                 .frame(maxWidth: 32)

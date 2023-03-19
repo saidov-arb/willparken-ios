@@ -23,89 +23,97 @@ struct SearchFilterEdit: View {
     @Binding public var timeuntil: Date
     
     var body: some View {
-        ScrollView {
-            VStack{
+        VStack{
+            HStack{
+                Text("Sucheinstellungen")
+                    .foregroundColor(.blue)
+                    .padding(.top)
+            }
+            Divider()
+            ScrollView {
                 VStack{
-                    VStack(alignment: .leading){
-                        HStack{
-                            WPTagContainer(tag: "Max Price / hour") { AnyView(
-                                WPStepper(value: $priceperhour, in: 0...50)
-                            )}
-                            .disabled(!useFilters)
-                            .opacity(!useFilters ? 0.3 : 1)
-                            Spacer()
-                            WPTagContainer(tag: "Use Filters?") {AnyView(
-                                WPStatusToggle(isActive: $useFilters, text: useFilters ? "Yes" : "No", height: 45)
-                            )}
-                            .frame(maxWidth: 100)
+                    VStack{
+                        VStack(alignment: .leading){
+                            HStack{
+                                WPTagContainer(tag: "Max Preis / Stunde") { AnyView(
+                                    WPStepper(value: $priceperhour, in: 0...50)
+                                )}
+                                .disabled(!useFilters)
+                                .opacity(!useFilters ? 0.3 : 1)
+                                Spacer()
+                                WPTagContainer(tag: "Aktivieren?") {AnyView(
+                                    WPStatusToggle(isActive: $useFilters, text: useFilters ? "Ja" : "Nein", height: 45)
+                                )}
+                                .frame(maxWidth: 100)
+                            }
                         }
-                    }
-                    .frame(maxWidth: .infinity,alignment: .leading)
-                    HStack{
-                        WPTagContainer(tag: "Tags") { AnyView(
-                            VStack{
-                                HStack{
-                                    ForEach (0..<3){ index in
-                                        WPStatusToggle(isActive: $tagsArray[index], text: tagsArrayNames[index], maxWidth: 120)
+                        .frame(maxWidth: .infinity,alignment: .leading)
+                        HStack{
+                            WPTagContainer(tag: "Tags") { AnyView(
+                                VStack{
+                                    HStack{
+                                        ForEach (0..<3){ index in
+                                            WPStatusToggle(isActive: $tagsArray[index], text: tagsArrayNames[index], maxWidth: 120)
+                                        }
+                                    }
+                                    HStack{
+                                        ForEach (3..<5){ index in
+                                            WPStatusToggle(isActive: $tagsArray[index], text: tagsArrayNames[index], maxWidth: 120)
+                                        }
                                     }
                                 }
-                                HStack{
-                                    ForEach (3..<5){ index in
-                                        WPStatusToggle(isActive: $tagsArray[index], text: tagsArrayNames[index], maxWidth: 120)
-                                    }
+                            )}
+                        }
+                        .disabled(!useFilters)
+                        .opacity(!useFilters ? 0.3 : 1)
+                    }
+                    .padding([.bottom,.top])
+                    
+                    //  Availability
+                    VStack(alignment:.leading){
+                        WPTagContainer(tag: "Wochentage") { AnyView(
+                            HStack{
+                                ForEach(0..<7) { index in
+                                    WeekdayButtonView(dayIndex: index, isActive: $weekdaysArray[index])
                                 }
                             }
                         )}
+                        HStack{
+                            WPTagContainer(tag: "Datum von") { AnyView(
+                                DatePicker("",selection: $dayfrom, displayedComponents: .date)
+                                    .labelsHidden()
+                            )}
+                            WPTagContainer(tag: "Datum bis") { AnyView(
+                                DatePicker("", selection: $dayuntil, displayedComponents: .date)
+                                    .labelsHidden()
+                            )}
+                        }
+                        HStack{
+                            WPTagContainer(tag: "Uhrzeit von") { AnyView(
+                                DatePicker("",selection: $timefrom, displayedComponents: .hourAndMinute)
+                                    .labelsHidden()
+                            )}
+                            WPTagContainer(tag: "Uhrzeit bis") { AnyView(
+                                DatePicker("",selection: $timeuntil, displayedComponents: .hourAndMinute)
+                                    .labelsHidden()
+                            )}
+                        }
                     }
+                    .padding([.bottom,.top])
                     .disabled(!useFilters)
                     .opacity(!useFilters ? 0.3 : 1)
                 }
-                .padding([.bottom,.top])
-                
-                //  Availability
-                VStack(alignment:.leading){
-                    WPTagContainer(tag: "Weekday") { AnyView(
-                        HStack{
-                            ForEach(0..<7) { index in
-                                WeekdayButtonView(dayIndex: index, isActive: $weekdaysArray[index])
-                            }
-                        }
-                    )}
-                    HStack{
-                        WPTagContainer(tag: "Date from") { AnyView(
-                            DatePicker("",selection: $dayfrom, displayedComponents: .date)
-                                .labelsHidden()
-                        )}
-                        WPTagContainer(tag: "Date until") { AnyView(
-                            DatePicker("", selection: $dayuntil, displayedComponents: .date)
-                                .labelsHidden()
-                        )}
-                    }
-                    HStack{
-                        WPTagContainer(tag: "Time from") { AnyView(
-                            DatePicker("",selection: $timefrom, displayedComponents: .hourAndMinute)
-                                .labelsHidden()
-                        )}
-                        WPTagContainer(tag: "Time until") { AnyView(
-                            DatePicker("",selection: $timeuntil, displayedComponents: .hourAndMinute)
-                                .labelsHidden()
-                        )}
-                    }
-                }
-                .padding([.bottom,.top])
-                .disabled(!useFilters)
-                .opacity(!useFilters ? 0.3 : 1)
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
-        }
-        .padding(.top)
-        .onDisappear{
-            fixTags()
-            fixWeekdays()
-        }
-        .onAppear{
-            setTags()
-            setWeekdays()
+            .padding(.top)
+            .onDisappear{
+                fixTags()
+                fixWeekdays()
+            }
+            .onAppear{
+                setTags()
+                setWeekdays()
+            }
         }
     }
     

@@ -22,7 +22,7 @@ struct WeekdayButtonView: View {
 struct WeekdayView: View {
     var dayIndex: Int
     var background: Color = Color(red: 0.85, green: 0.85, blue: 1)
-    private let weekdays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su", "Everyday"]
+    private let weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So", "Jeden Tag"]
     var body: some View {
         Text(weekdays[dayIndex])
             .frame(maxWidth: .infinity)

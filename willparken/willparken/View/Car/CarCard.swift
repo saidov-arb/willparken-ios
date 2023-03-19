@@ -38,7 +38,7 @@ struct CarCard: View {
             .padding(.trailing,5)
         }
         .padding(10)
-        .background(RoundedRectangle(cornerRadius: 12).foregroundColor(Color.blue.opacity(0.03)))
+        .background(RoundedRectangle(cornerRadius: 12).foregroundColor(car.c_isreserved ? Color.yellow.opacity(0.03) : Color.blue.opacity(0.03)))
         .overlay(
             RoundedRectangle(cornerRadius: 12).stroke(.blue)
         )

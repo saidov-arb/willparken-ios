@@ -14,12 +14,16 @@ import CommonCrypto
 class WPapi: ObservableObject{
     
     //  MARK: - URL -
-    private final var APIURL: String = "http://192.168.0.7:3000"
+    private final var APIURL: String = "http://willparken.zapto.org:3000"
     
     //  MARK: - API -
     struct APIResponseWrapper<T: Decodable>: Decodable {
         let message: String
         let content: T
+    }
+    
+    struct APIResponseWrapperMSG<T: Decodable>: Decodable {
+        let message: T
     }
     
     /**
@@ -56,8 +60,13 @@ class WPapi: ObservableObject{
                 guard let data = data else { return }
                 DispatchQueue.main.async {
                     do {
-                        let decodedWrapper = try JSONDecoder().decode(APIResponseWrapper<T>.self, from: data)
-                        let decodedObject = decodedWrapper.content
+                        let decodedObject: T
+                        if let decodedWrapper = try? JSONDecoder().decode(APIResponseWrapper<T>.self, from: data) {
+                            decodedObject = decodedWrapper.content
+                        } else {
+                            decodedObject = try JSONDecoder().decode(APIResponseWrapperMSG<T>.self, from: data).message
+                        }
+                        
                         success(decodedObject)
                     } catch let error {
                         print("Error decoding: ", error)
@@ -123,8 +132,13 @@ class WPapi: ObservableObject{
 
                 DispatchQueue.main.async {
                     do {
-                        let decodedWrapper = try JSONDecoder().decode(APIResponseWrapper<T>.self, from: data)
-                        let decodedObject = decodedWrapper.content
+                        let decodedObject: T
+                        if let decodedWrapper = try? JSONDecoder().decode(APIResponseWrapper<T>.self, from: data) {
+                            decodedObject = decodedWrapper.content
+                        } else {
+                            decodedObject = try JSONDecoder().decode(APIResponseWrapperMSG<T>.self, from: data).message
+                        }
+                        
                         success(decodedObject)
                     } catch let error {
                         failure("Error decoding: (probably wrong format) " + error.localizedDescription)
